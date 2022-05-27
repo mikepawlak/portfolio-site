@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "predeploy": "node build_scripts/predeploy.js",
+    "stage": "node build_scripts/predeploy.js",
     "deploy": "node build_scripts/deploy.js"
   },
   "dependencies": {
