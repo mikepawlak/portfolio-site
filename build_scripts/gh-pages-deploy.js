@@ -9,7 +9,7 @@ const fs = require("fs");
     await execa("npm", ["run", "build"]);
     await execa("ls");
     // eslint-disable-next-line no-useless-escape
-    await execa("sed", "-i -e 's/github.io\///g' /dist/index.html");
+    await execa("sed", ["-i", "-e", "'s/github.io\///g'", "/dist/index.html"]);
     // Understand if it's dist or build folder
     const folderName = fs.existsSync("dist") ? "dist" : "build";
     await execa("git", ["--work-tree", folderName, "add", "--all"]);
