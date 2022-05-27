@@ -148,7 +148,7 @@ export default {
     onSubmit() {
       console.log("submitting here");
       axios
-        .post("http://localhost:8000/contact", this.$data)
+        .post(`${process.env.VUE_APP_API_URL}/contact`, this.$data)
         // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.submitted = true;
