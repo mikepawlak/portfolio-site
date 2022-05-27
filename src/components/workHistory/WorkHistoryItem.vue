@@ -42,7 +42,13 @@
               Highlights
             </p>
             <ul class="ml-5" v-if="role.highlights.length != 0">
-              <li v-for="hg in role.highlights" :key="hg">{{ hg }}</li>
+              <li
+                class="highlight-list-item"
+                v-for="hg in role.highlights"
+                :key="hg"
+              >
+                {{ hg }}
+              </li>
             </ul>
             <p class="font-semibold ml-5">Responsibilities</p>
             <p class="ml-5">{{ role.responsibilities }}</p>
@@ -68,5 +74,8 @@ export default {
 .work-block h3 {
   color: #1a2453;
   font-weight: bold;
+}
+.highlight-list-item {
+  list-style: inside;
 }
 </style>

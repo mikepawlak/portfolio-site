@@ -49,11 +49,11 @@ export default {
 }
 
 .btn-accent {
-  background: #3ca5be;
+  background: #3ca5be !important;
 }
 
 .btn-accent:hover {
-  background: #3693ab;
+  background: #3693ab !important;
 }
 
 .btn-white {

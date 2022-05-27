@@ -40,7 +40,10 @@ export default {
             {
               title: "Software Engineer",
               time: "",
-              highlights: ["Transitioned a dozen apis to Kubernetes on GCP"],
+              highlights: [
+                "Made several changes to Jenkins Pipelines to automate maintenance steps and alerting used across the enterprise.",
+                "Transitioned several apis to Kubernetes on GCP, including configuring Helm deployments, Jenkins Pipeline builds, and GCP namespace and ingress configurations. ",
+              ],
               responsibilities:
                 "Develop and maintain various apis, jobs, and workflows hosted on GCP.",
             },
@@ -62,7 +65,10 @@ export default {
             {
               title: "Development Lead",
               time: "Jul 2019 - Jan 2020",
-              highlights: [],
+              highlights: [
+                "Led transition of multiple teams to agile workflows",
+                "Led the development of Fleet Farms first mobile application through entire SDLC, leading to significant improvements in back-of-house inventory management.",
+              ],
               responsibilities:
                 "Act as technical lead on all enterprise web projects for Fleet Farm. Lead an 8 person agile team through all steps of the SDLC.",
             },

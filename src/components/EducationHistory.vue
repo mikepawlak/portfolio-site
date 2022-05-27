@@ -16,17 +16,19 @@
             Emphasized the study of digital communications in campaign politics
           </p>
           <ul>
-            <li>
-              - Senior seminar included analysis of political campaign website
-              UX meta-study
+            <li class="highlight-list-item">
+              Senior seminar included analysis of political campaign website UX
+              meta-study
             </li>
-            <li>
-              - Worked with International Politics professor in independent
-              study and built tool to scrape text of 103 national constitutions
-              from the internet and generate CSV files for textual analysis.
-              Also participated in analysis using R and SPSS.
+            <li class="highlight-list-item">
+              Worked with International Politics professor in independent study
+              and built tool to scrape text of 103 national constitutions from
+              the internet and generate CSV files for textual analysis. Also
+              participated in analysis using R and SPSS.
             </li>
-            <li>- Courses completed include OOP, Design Patterns, and Java.</li>
+            <li class="highlight-list-item">
+              Courses completed include OOP, Design Patterns, and Java.
+            </li>
           </ul>
         </div>
       </div>
@@ -49,5 +51,9 @@ export default {
 .edu-block h3 {
   color: #1a2453;
   font-weight: bold;
+}
+
+.highlight-list-item {
+  list-style: inside;
 }
 </style>

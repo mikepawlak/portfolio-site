@@ -21,5 +21,4 @@ jobs:
       - name: Run deploy script
         run: |
           git config user.name "mpawlak" && git config user.email "mpawlak719@gmail.com"
-          ls
           npm run deploy
