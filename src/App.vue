@@ -1,26 +1,74 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <AppJumbotron />
+  <WorkHistory />
+  <EducationHistory />
+  <OtherExperience />
+  <ContactMe />
+  <AppFooter />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppJumbotron from "./components/AppJumbotron.vue";
+import WorkHistory from "./components/WorkHistory.vue";
+import EducationHistory from "./components/EducationHistory.vue";
+import OtherExperience from "./components/OtherExperience.vue";
+import ContactMe from "./components/ContactMe.vue";
+import AppFooter from "./components/AppFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AppJumbotron,
+    WorkHistory,
+    EducationHistory,
+    OtherExperience,
+    ContactMe,
+    AppFooter,
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.card {
+  color: #cddbe9;
+  background: #1a2453;
+  margin: 35px 0px 0px 0px;
+  min-width: 800px;
+  z-index: 2;
+}
+
+.color-primary {
+  background: #1a2453;
+}
+.color-accent {
+  background: #3ca5be;
+}
+
+.long-card {
+  max-width: 1100px;
+}
+
+.btn-accent {
+  background: #3ca5be;
+}
+
+.btn-accent:hover {
+  background: #3693ab;
+}
+
+.btn-white {
+  background: #cddbe9;
+  color: #1a2453;
+}
+
+.btn-white:hover {
+  background: #b8cce0;
+}
+
+@media screen and (max-width: 640px) {
+  .card {
+    width: 100%;
+    min-width: 0px;
+  }
 }
 </style>
