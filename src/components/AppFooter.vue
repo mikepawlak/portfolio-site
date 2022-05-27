@@ -8,7 +8,9 @@
     <ContactLinks />
     <div class="text-center p-4 footer-secondary">
       2022: Designed and built by
-      <a class="text-whitehite" href="https://tailwind-elements.com/">me</a>
+      <a class="text-whitehite" href="https://github.com/mikepawlak/github.io"
+        >me</a
+      >
     </div>
   </footer>
 </template>
@@ -55,6 +57,11 @@ export default {
 
 .scroll-text {
   color: #f3f3f3;
+  /* stop touch to search on mobile */
+  user-select: none; /* standard */
+  -moz-user-select: none; /* firefox specific */
+  -webkit-user-select: none; /* Chrome, Opera and Safari*/
+  -ms-user-select: none; /* IE, ms-edge */
 }
 .scroll-text:hover {
   cursor: pointer;
@@ -79,16 +86,16 @@ export default {
 
 @-webkit-keyframes wiggle {
   0% {
-    -webkit-transform: translateY(2px);
+    -webkit-transform: translateY(4px);
   }
   25% {
-    -webkit-transform: translateY(-2px);
+    -webkit-transform: translateY(-4px);
   }
   50% {
-    -webkit-transform: translateY(2px);
+    -webkit-transform: translateY(4px);
   }
   75% {
-    -webkit-transform: translateY(-2px);
+    -webkit-transform: translateY(-4px);
   }
   100% {
     -webkit-transform: translateY(0px);
@@ -97,16 +104,16 @@ export default {
 
 @-ms-keyframes wiggle {
   0% {
-    -ms-transform: translateY(2px);
+    -ms-transform: translateY(4px);
   }
   25% {
-    -ms-transform: translateY(-2px);
+    -ms-transform: translateY(-4px);
   }
   50% {
-    -ms-transform: translateY(2px);
+    -ms-transform: translateY(4px);
   }
   75% {
-    -ms-transform: translateY(-2px);
+    -ms-transform: translateY(-4px);
   }
   100% {
     -ms-transform: translateY(0px);
@@ -115,16 +122,16 @@ export default {
 
 @keyframes wiggle {
   0% {
-    transform: translateY(2px);
+    transform: translateY(4px);
   }
   25% {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
   50% {
-    transform: translateY(2px);
+    transform: translateY(4px);
   }
   75% {
-    transform: rotate(-2px);
+    transform: rotate(-4px);
   }
   100% {
     transform: (0px);

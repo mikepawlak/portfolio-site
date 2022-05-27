@@ -3,7 +3,7 @@
     <div class="main card shadow-lg p-5 sm:p-10">
       <div class="main-wrapper">
         <p>Hello, my name is</p>
-        <h1 class="text-8xl sm:text-9xl">&#60;Mike&#47;&#62;</h1>
+        <h1 class="text-7xl sm:text-9xl font-mono">&#60;Mike&#47;&#62;</h1>
         <p class="float-right">and I solve problems with code.</p>
       </div>
     </div>
