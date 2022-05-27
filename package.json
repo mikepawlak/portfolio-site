@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node build_scripts/gh-pages-deploy.js"
+    "predeploy": "node build_scripts/predeploy.js",
+    "deploy": "node build_scripts/deploy.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
