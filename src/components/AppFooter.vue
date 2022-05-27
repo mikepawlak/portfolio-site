@@ -1,7 +1,7 @@
 <template>
   <div class="scroll-text text-center w-full pt-10 pb-5">
-    <span @click="scrollToTop()"
-      >scroll to top <span class="animated-arrow">^</span></span
+    <a href="#" @click="scrollToTop()"
+      >scroll to top <span class="animated-arrow">^</span></a
     >
   </div>
   <footer class="text-center footer-primary">
@@ -62,9 +62,6 @@ export default {
   -moz-user-select: none; /* firefox specific */
   -webkit-user-select: none; /* Chrome, Opera and Safari*/
   -ms-user-select: none; /* IE, ms-edge */
-}
-.scroll-text:hover {
-  cursor: pointer;
 }
 
 .animated-arrow {
