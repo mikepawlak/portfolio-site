@@ -22,5 +22,5 @@ jobs:
         run: |
           git config user.name "mpawlak" && git config user.email "mpawlak719@gmail.com"
           npm run predeploy
-          sed -i -e 's/github.io\///g' dist/index.html
+          sed -i -e 's/github.io/somethingelse/g' dist/index.html
           npm run deploy
