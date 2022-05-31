@@ -67,7 +67,7 @@ export default {
               time: "Jul 2019 - Jan 2020",
               highlights: [
                 "Led transition of multiple teams to agile workflows",
-                "Led the development of Fleet Farms first mobile application through entire SDLC, leading to significant improvements in back-of-house inventory management.",
+                "Led the development of Fleet Farm's first mobile application through entire SDLC, leading to significant improvements in back-of-house inventory management.",
               ],
               responsibilities:
                 "Act as technical lead on all enterprise web projects for Fleet Farm. Lead an 8 person agile team through all steps of the SDLC.",
