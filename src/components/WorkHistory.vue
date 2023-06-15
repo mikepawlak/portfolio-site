@@ -24,8 +24,31 @@ export default {
     return {
       workItems: [
         {
+          company: "Measurabl",
+          time: "Aug 2022 - July 2023",
+          technologyUsed: [
+            "Java Spring",
+            "Rails",
+            "AWS",
+            "Github Actions",
+            "Jenkins",
+          ],
+          roles: [
+            {
+              title: "Software Engineer",
+              time: "",
+              highlights: [
+                "Created automated process for updating and deploying customer facing documentation.",
+                "Developed process for automated api performance, and E2E testing.",
+              ],
+              responsibilities:
+                "Develop and maintain customer facing data api as part of a 4 developer team. Originally focused on Java Spring service but later moved into developing in both Java and Rails, as well as helping maintain automated deployment, testing, and monitoring services.",
+            },
+          ],
+        },
+        {
           company: "Entegral",
-          time: "Jan 2020 - present",
+          time: "Jan 2020 - Aug 2022",
           technologyUsed: [
             "Java",
             "Java Spring",
