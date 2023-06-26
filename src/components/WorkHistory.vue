@@ -83,6 +83,9 @@ export default {
             "Angular",
             "Sass",
             "NodeJS",
+            "ReactJS",
+            "ReactNative",
+            "NativeScript",
           ],
           roles: [
             {
