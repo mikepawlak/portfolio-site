@@ -55,8 +55,11 @@ jobs:
       - name: Extract coverage summary
         id: coverage
         run: |
-          COVERAGE=$(jq . coverage/coverage-summary.json)
-          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+          FILE=$(find coverage -type f -name coverage-summary.json | head -n1)
+          echo "coverage<<EOF" >> $GITHUB_OUTPUT
+          # dump the full, formatted JSON
+          jq . "$FILE"        >> $GITHUB_OUTPUT
+          echo "EOF"          >> $GITHUB_OUTPUT
 
       - name: Generate Markdown summary
         id: summary
