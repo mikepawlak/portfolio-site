@@ -48,7 +48,7 @@ jobs:
         run: npm ci
 
       - name: Run tests & coverage
-        run: npx ng test:ci
+        run: npx ng run test:ci
 
       - name: Install jq for parsing JSON
         run: sudo apt-get update && sudo apt-get install -y jq
