@@ -47,5 +47,40 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+      - name: Run tests with coverage + JSON
+        run: |
+          npm test -- \
+            --watch=false \
+            --browsers=ChromeHeadless \
+            --json --outputFile=test-results.json \
+            --code-coverage
+
+      - name: Extract coverage summary
+        id: coverage
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          COVERAGE=$(jq . coverage/coverage-summary.json)
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+
+      - name: Extract test results summary
+        id: tests
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          TESTS=$(jq . test-results.json)
+          echo "test_summary=$TESTS" >> $GITHUB_OUTPUT
+
+      - name: Comment JSON summaries to PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## 🧪 Test Results Summary
+            ```json
+            ${{ steps.tests.outputs.test_summary }}
+            ```
+
+            ## 📊 Coverage Summary
+            ```json
+            ${{ steps.coverage.outputs.coverage }}
+            ```

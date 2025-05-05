@@ -26,7 +26,7 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/portfolio'),
       subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
+      reporters: [{ type: 'json-summary' }, { type: 'text-summary' }],
     },
     reporters: ['spec'],
     browsers: ['ChromeHeadless'],
