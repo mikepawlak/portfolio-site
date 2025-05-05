@@ -62,7 +62,7 @@ jobs:
       - name: Extract test results summary
         id: tests
         run: |
-          TESTS=$(jq . test-results.json)
+          TESTS=$(jq . coverage/test-results.json)
           echo "test_summary=$TESTS" >> $GITHUB_OUTPUT
 
       - name: Comment JSON summaries to PR
