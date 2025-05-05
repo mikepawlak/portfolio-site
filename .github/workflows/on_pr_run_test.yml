@@ -53,4 +53,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
+          identifier: ci-test-coverage-report
           body-file: comment.md
