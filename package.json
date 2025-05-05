@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
+    "test:ci": "ng test --config karma.ci.conf.js  --code-coverage",
     "prepare": "husky",
     "lint": "ng lint --fix",
     "format": "prettier ./src --write"
@@ -65,6 +66,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "karma-json-reporter": "^1.2.1",
     "karma-spec-reporter": "^0.0.36",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
