@@ -48,7 +48,7 @@ jobs:
         run: npm ci
 
       - name: Run tests & coverage
-        run: ng test --code-coverage --watch=false --browsers=ChromeHeadless
+        run: npx ng test --code-coverage --watch=false --browsers=ChromeHeadless
 
       - name: Install jq for parsing JSON
         run: sudo apt-get update && sudo apt-get install -y jq
