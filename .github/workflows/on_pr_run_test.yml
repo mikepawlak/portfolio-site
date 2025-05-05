@@ -49,67 +49,12 @@ jobs:
       - name: Run tests & coverage
         run: npm run test:ci
 
-      - name: Install jq for parsing JSON
-        run: sudo apt-get update && sudo apt-get install -y jq
-
-      - name: Extract coverage summary
-        id: coverage
-        run: |
-          FILE=$(find coverage -type f -name coverage-summary.json | head -n1)
-          echo "coverage<<EOF" >> $GITHUB_OUTPUT
-          # dump the full, formatted JSON
-          jq . "$FILE"        >> $GITHUB_OUTPUT
-          echo "EOF"          >> $GITHUB_OUTPUT
-
-      - name: Generate Markdown summary
-        id: summary
-        shell: bash
-        run: |
-          # Safely locate the two JSON files (never exit non-zero)
-          TEST_FILE=$(find coverage -type f -name test-results.json | head -n1 || true)
-          COV_FILE=$(find coverage -type f -name coverage-summary.json | head -n1 || true)
-
-          # If either file is missing, emit a warning table and exit zero
-          if [[ ! -f "$TEST_FILE" || ! -f "$COV_FILE" ]]; then
-            echo "report<<EOF" >> $GITHUB_OUTPUT
-            echo "| ⚠️ Cannot locate test-results.json or coverage-summary.json |" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          # Extract test metrics
-          TOTAL=$(jq .summary.total    "$TEST_FILE")
-          PASS=$(jq .summary.success  "$TEST_FILE")
-          FAIL=$(jq .summary.failed   "$TEST_FILE")
-
-          # Extract coverage metrics
-          STMT=$(jq .total.statements.pct "$COV_FILE")
-          BRNC=$(jq .total.branches.pct   "$COV_FILE")
-          FUNC=$(jq .total.functions.pct  "$COV_FILE")
-          LINE=$(jq .total.lines.pct      "$COV_FILE")
-
-          # Build the Markdown table
-          read -r -d '' TABLE <<EOF
-          | 📊 Metric              | 🔢 Value       |
-          | ---------------------- | ------------: |
-          | ✅ Tests Passed        | ${PASS}/${TOTAL} |
-          | ❌ Tests Failed        | ${FAIL}         |
-          | 📑 Statements Coverage | ${STMT}%        |
-          | 🌿 Branches Coverage   | ${BRNC}%        |
-          | 🔧 Functions Coverage  | ${FUNC}%        |
-          | 📋 Lines Coverage      | ${LINE}%        |
-          EOF
-
-          # Emit as a multiline step-output
-          echo "report<<EOF" >> $GITHUB_OUTPUT
-          echo "$TABLE"         >> $GITHUB_OUTPUT
-          echo "EOF"            >> $GITHUB_OUTPUT
+      - name: Generate PR comment
+        run: node scripts/pr-comment.js > comment.md
 
       - name: Comment summary to PR
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ## 🛠️ CI Test & Coverage Report
-            ${{ steps.summary.outputs.report }}
+          body-file: comment.md
