@@ -90,7 +90,10 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "watch": false,
+            "browsers": "ChromeHeadless",
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           }
         },
         "lint": {
