@@ -60,45 +60,42 @@ jobs:
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
 
        - name: Generate Markdown summary
-      id: summary
-      shell: bash
-      run: |
-        # pull test metrics
-        TOTAL=$(jq .summary.total test-results.json)
-        PASS=$(jq .summary.success test-results.json)
-        FAIL=$(jq .summary.failed test-results.json)
+        id: summary
+        shell: bash
+        run: |
+          # pull test metrics
+          TOTAL=$(jq .summary.total test-results.json)
+          PASS=$(jq .summary.success test-results.json)
+          FAIL=$(jq .summary.failed test-results.json)
 
-        # pull coverage metrics
-        STMT=$(jq .total.statements.pct coverage/coverage-summary.json)
-        BRNC=$(jq .total.branches.pct coverage/coverage-summary.json)
-        FUNC=$(jq .total.functions.pct coverage/coverage-summary.json)
-        LINE=$(jq .total.lines.pct coverage/coverage-summary.json)
+          # pull coverage metrics
+          STMT=$(jq .total.statements.pct coverage/coverage-summary.json)
+          BRNC=$(jq .total.branches.pct coverage/coverage-summary.json)
+          FUNC=$(jq .total.functions.pct coverage/coverage-summary.json)
+          LINE=$(jq .total.lines.pct coverage/coverage-summary.json)
 
-        # build a Markdown table in a heredoc
-        read -r -d '' TABLE <<EOF
-        | 📊 Metric              | 🔢 Value       |
-        | ---------------------- | ------------: |
-        | ✅ Tests Passed        | ${PASS}/${TOTAL} |
-        | ❌ Tests Failed        | ${FAIL}         |
-        | 📑 Statements Coverage | ${STMT}%        |
-        | 🌿 Branches Coverage   | ${BRNC}%        |
-        | 🔧 Functions Coverage  | ${FUNC}%        |
-        | 📋 Lines Coverage      | ${LINE}%        |
-        EOF
+          # build a Markdown table in a heredoc
+          read -r -d '' TABLE <<EOF
+          | 📊 Metric              | 🔢 Value       |
+          | ---------------------- | ------------: |
+          | ✅ Tests Passed        | ${PASS}/${TOTAL} |
+          | ❌ Tests Failed        | ${FAIL}         |
+          | 📑 Statements Coverage | ${STMT}%        |
+          | 🌿 Branches Coverage   | ${BRNC}%        |
+          | 🔧 Functions Coverage  | ${FUNC}%        |
+          | 📋 Lines Coverage      | ${LINE}%        |
+          EOF
 
-        # export it as a multiline step output
-        echo "report<<EOF" >> $GITHUB_OUTPUT
-        echo "$TABLE"           >> $GITHUB_OUTPUT
-        echo "EOF"              >> $GITHUB_OUTPUT
+          # export it as a multiline step output
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          echo "$TABLE"           >> $GITHUB_OUTPUT
+          echo "EOF"              >> $GITHUB_OUTPUT
 
-    #  ──────────────────────────────────────────────────────────────
-    #  2) Post (or update) that Markdown table as a PR comment
-    #  ──────────────────────────────────────────────────────────────
-    - name: Comment summary to PR
-      uses: peter-evans/create-or-update-comment@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          ## 🛠️ CI Test & Coverage Report
-          ${{ steps.summary.outputs.report }}
+      - name: Comment summary to PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## 🛠️ CI Test & Coverage Report
+            ${{ steps.summary.outputs.report }}
