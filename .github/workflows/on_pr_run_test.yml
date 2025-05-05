@@ -76,15 +76,15 @@ jobs:
 
         # build a Markdown table in a heredoc
         read -r -d '' TABLE <<EOF
-| 📊 Metric              | 🔢 Value       |
-| ---------------------- | ------------: |
-| ✅ Tests Passed        | ${PASS}/${TOTAL} |
-| ❌ Tests Failed        | ${FAIL}         |
-| 📑 Statements Coverage | ${STMT}%        |
-| 🌿 Branches Coverage   | ${BRNC}%        |
-| 🔧 Functions Coverage  | ${FUNC}%        |
-| 📋 Lines Coverage      | ${LINE}%        |
-EOF
+        | 📊 Metric              | 🔢 Value       |
+        | ---------------------- | ------------: |
+        | ✅ Tests Passed        | ${PASS}/${TOTAL} |
+        | ❌ Tests Failed        | ${FAIL}         |
+        | 📑 Statements Coverage | ${STMT}%        |
+        | 🌿 Branches Coverage   | ${BRNC}%        |
+        | 🔧 Functions Coverage  | ${FUNC}%        |
+        | 📋 Lines Coverage      | ${LINE}%        |
+        EOF
 
         # export it as a multiline step output
         echo "report<<EOF" >> $GITHUB_OUTPUT
