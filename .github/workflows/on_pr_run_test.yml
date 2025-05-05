@@ -6,10 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-      - edited
-      - ready_for_review
-      - labeled
-      - unlabeled
 
 jobs:
   lint:
