@@ -58,7 +58,7 @@ jobs:
           COVERAGE=$(jq . coverage/coverage-summary.json)
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
 
-       - name: Generate Markdown summary
+      - name: Generate Markdown summary
         id: summary
         shell: bash
         run: |
