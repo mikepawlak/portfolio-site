@@ -65,18 +65,21 @@ jobs:
         id: summary
         shell: bash
         run: |
-          # pull test metrics
-          TOTAL=$(jq .summary.total test-results.json)
-          PASS=$(jq .summary.success test-results.json)
-          FAIL=$(jq .summary.failed test-results.json)
+          # locate both JSON files under coverage/
+          COV_FILE=$(find coverage -type f -name coverage-summary.json | head -n1)
+          TEST_FILE=$(find coverage -type f -name test-results.json     | head -n1)
 
-          # pull coverage metrics
-          STMT=$(jq .total.statements.pct coverage/coverage-summary.json)
-          BRNC=$(jq .total.branches.pct coverage/coverage-summary.json)
-          FUNC=$(jq .total.functions.pct coverage/coverage-summary.json)
-          LINE=$(jq .total.lines.pct coverage/coverage-summary.json)
+          # now pull out the bits you need
+          TOTAL=$(jq .summary.total    "${TEST_FILE}")
+          PASS=$(jq .summary.success  "${TEST_FILE}")
+          FAIL=$(jq .summary.failed   "${TEST_FILE}")
 
-          # build a Markdown table in a heredoc
+          STMT=$(jq .total.statements.pct "${COV_FILE}")
+          BRNC=$(jq .total.branches.pct   "${COV_FILE}")
+          FUNC=$(jq .total.functions.pct  "${COV_FILE}")
+          LINE=$(jq .total.lines.pct      "${COV_FILE}")
+
+          # build the Markdown
           read -r -d '' TABLE <<EOF
           | 📊 Metric              | 🔢 Value       |
           | ---------------------- | ------------: |
@@ -88,10 +91,10 @@ jobs:
           | 📋 Lines Coverage      | ${LINE}%        |
           EOF
 
-          # export it as a multiline step output
+          # emit as a multiline output
           echo "report<<EOF" >> $GITHUB_OUTPUT
-          echo "$TABLE"           >> $GITHUB_OUTPUT
-          echo "EOF"              >> $GITHUB_OUTPUT
+          echo "$TABLE"         >> $GITHUB_OUTPUT
+          echo "EOF"            >> $GITHUB_OUTPUT
 
       - name: Comment summary to PR
         uses: peter-evans/create-or-update-comment@v4
