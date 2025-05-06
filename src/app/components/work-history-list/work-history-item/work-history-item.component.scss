@@ -1,19 +1,5 @@
 mat-card {
-  padding: 8px;
-  margin: 16px 8px;
-
-  mat-card-title {
-    padding: 8px 0;
-    font-size: medium;
-    font-weight: 500;
-  }
-  mat-card-subtitle {
-    color: #666;
-    font-size: 0.9rem;
-  }
   mat-card-content {
-    padding: 8px;
-
     .chip-wrapper {
       mat-chip {
         margin: 2px;

@@ -24,6 +24,25 @@ html {
   height: 100%;
 }
 
+mat-card {
+  padding: 8px;
+  margin: 16px 8px;
+
+  mat-card-title {
+    padding: 8px 0;
+    font-size: medium !important;
+    font-weight: 500 !important;
+  }
+  mat-card-subtitle {
+    padding-left: 2px !important;
+    color: #666 !important;
+    font-size: 0.9rem !important;
+  }
+  mat-card-content {
+    padding: 8px;
+  }
+}
+
 .mat-icon.fa,
 .mat-icon.fab {
   font-size: 20px;

@@ -1,0 +1,39 @@
+mat-card {
+  margin: 32px 8px;
+
+  mat-card-content {
+    padding-top: 16px;
+
+    form {
+      max-width: 700px;
+      margin: 0px auto;
+
+      .form-row {
+        width: 100%;
+        display: flex;
+
+        mat-form-field {
+          width: 100%;
+          margin: 8px;
+        }
+      }
+      .form-actions {
+        button {
+          float: right;
+          margin: 8px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+
+    mat-form-field {
+      flex: 1 1 100%;
+      margin: 8px 0;
+    }
+  }
+}
