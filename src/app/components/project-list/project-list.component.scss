@@ -1,0 +1,41 @@
+.project-row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+
+  // full-bleed hack:
+  position: relative;
+  width: 100vw; // span the viewport
+  left: 50%; // shift right half the container…
+  margin-left: -50vw; // …then pull back half the viewport
+  padding: 0 16px; // optional side padding if you like
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  gap: 16px;
+}
+
+.project-row > * {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 800px) {
+  .project-row {
+    /* go back to a normal container */
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    /* you can keep horizontal scrolling if you still have more items than fit: */
+    overflow-x: auto;
+  }
+}
