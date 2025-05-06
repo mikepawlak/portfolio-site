@@ -2,3 +2,23 @@
   max-width: 900px;
   margin: 0px auto;
 }
+.section-title {
+  color: #999;
+  font-size: small;
+  font-weight: 500;
+  margin: 16px 8px;
+  display: inline-block;
+  width: 100%;
+  &.has-subtitle {
+    margin-bottom: 8px;
+  }
+}
+.section-subtitle {
+  color: #999;
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0px 8px 16px 16px;
+  display: inline-block;
+  width: 100%;
+}
