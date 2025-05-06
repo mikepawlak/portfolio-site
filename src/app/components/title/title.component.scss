@@ -2,6 +2,17 @@ button {
   margin: 8px;
   border-radius: 25px;
 }
-ul {
-  padding-inline-start: 16px;
+.jumbotron {
+  color: var(--mat-sys-primary);
+  margin-bottom: 32px;
+  font-weight: bold;
+
+  .jumbo-text {
+    font-family: 'Space Mono', 'Roboto Mono', monospace;
+    font-size: 4.75rem;
+    text-align: center;
+  }
+  .jumbo-post-text {
+    text-align: right;
+  }
 }
