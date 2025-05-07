@@ -10,7 +10,6 @@
 
   // full-bleed hack:
   position: relative;
-  width: 100vw; // span the viewport
   left: 50%; // shift right half the container…
   margin-left: -50vw; // …then pull back half the viewport
   padding: 0 16px; // optional side padding if you like

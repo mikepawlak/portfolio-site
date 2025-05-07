@@ -53,7 +53,6 @@ export class ContactFormService {
 
     const payload: ContactFormValue = this.form.value;
     this.resetForm();
-    console.log(this.form);
     return of(payload);
   }
 
