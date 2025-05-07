@@ -3,8 +3,8 @@
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  scroll-behavior: smooth;
   margin: 0;
-  padding: 30px;
   height: 100%;
 
   @include mat.theme(
@@ -23,7 +23,10 @@ body {
 html {
   height: 100%;
 }
-
+html,
+body {
+  overflow-x: hidden;
+}
 mat-card {
   padding: 8px;
   margin: 16px 8px;
@@ -47,6 +50,11 @@ mat-card {
 .mat-icon.fab {
   font-size: 20px;
   vertical-align: middle;
+}
+
+.mat-app-background {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .no-background {

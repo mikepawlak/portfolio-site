@@ -10,7 +10,8 @@
     "test:ci": "ng test --karma-config karma.ci.conf.js  --code-coverage",
     "prepare": "husky",
     "lint": "ng lint",
-    "format": "prettier ./src --write"
+    "format": "prettier ./src --write",
+    "preflight": "npm run lint && npm run format && npm run test"
   },
   "lint-staged": {
     "*.{ts,js,jsx,tsx}": [
