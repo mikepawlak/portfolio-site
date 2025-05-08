@@ -27,7 +27,7 @@ jobs:
       - name: Start Firestore Emulator
         run: |
           npm install -g firebase-tools
-          npm run start:backend:ci
+          npm run start:backend:ci --silent > emulators.log 2>&1 &
           echo "Firestore emulator starting in background…"
           # give it a moment to spin up
           sleep 5
