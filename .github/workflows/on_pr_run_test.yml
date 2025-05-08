@@ -46,12 +46,11 @@ jobs:
         run: npm run test:ci
 
       - name: Generate PR comment
-        run: node scripts/pr-comment.js > comment.md
+        run: node scripts/pr-comment-unit.js > comment.md
 
-      - name: Comment summary to PR
-        uses: peter-evans/create-or-update-comment@v4
+      - name: Comment summary to PR (sticky)
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.pull_request.number }}
-          identifier: ci-test-coverage-report
-          body-file: comment.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: ci-test-coverage-report
+          path: comment.md
