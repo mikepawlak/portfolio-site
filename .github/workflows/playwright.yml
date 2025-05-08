@@ -48,7 +48,7 @@ jobs:
           retention-days: 30
         
       - name: Generate E2E PR comment
-        run: node scripts/pr-comment-unit.js > e2e-comment.md
+        run: node scripts/pr-comment-e2e.js > e2e-comment.md
         
       - name: Comment E2E summary to PR (sticky)
         uses: marocchino/sticky-pull-request-comment@v2
