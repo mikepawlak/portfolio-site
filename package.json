@@ -9,10 +9,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
     "test:ci": "ng test --karma-config karma.ci.conf.js  --code-coverage",
+    "e2e": "playwright test",
     "prepare": "husky",
     "lint": "ng lint",
     "format": "prettier ./src --write",
-    "preflight": "npm run lint && npm run format && npm run test"
+    "preflight": "npm run lint && npm run format && npm run test && npm run e2e"
   },
   "lint-staged": {
     "*.{ts,js,jsx,tsx}": [
@@ -60,6 +61,7 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.26.0",
+    "@playwright/test": "^1.52.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "angular-eslint": "^19.3.0",
