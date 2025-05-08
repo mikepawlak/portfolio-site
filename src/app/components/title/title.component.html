@@ -1,28 +1,61 @@
-<mat-card class="mat-elevation-z0 no-background">
-  <mat-card-content>
-    <div class="jumbotron">
-      <div class="jumbo-pre-text">Hello, my name is</div>
-      <div class="jumbo-text">&lt;MIKE/&gt;</div>
-      <div class="jumbo-post-text">and I solve problems with code.</div>
-    </div>
-    <p>I am currently a <b>Software Engineer</b> in <b>Milwaukee, WI</b></p>
-  </mat-card-content>
-  <mat-card-actions align="end">
-    <button mat-raised-button>
-      <mat-icon
-        fontSet="fa"
-        fontIcon="fa-angle-down"
-        aria-hidden="false"
-        aria-label="see more"></mat-icon>
-      More
-    </button>
-    <button mat-flat-button color="primary">
-      <mat-icon
-        fontSet="fa"
-        fontIcon="fa-file-arrow-down"
-        aria-hidden="false"
-        aria-label="download resume"></mat-icon>
-      Resume
-    </button>
-  </mat-card-actions>
-</mat-card>
+@if (loaded) {
+  <mat-card class="mat-elevation-z0 no-background">
+    <mat-card-content>
+      <div class="jumbotron">
+        <div class="jumbo-pre-text">Hello, my name is</div>
+        <div class="jumbo-text">&lt;MIKE/&gt;</div>
+        <div class="jumbo-post-text">and I solve problems with code.</div>
+      </div>
+      @if (employmentStatus) {
+        <p>
+          I am currently a <b>{{ employmentStatus.title }}</b> in
+          <b>{{ employmentStatus.location }}</b>
+        </p>
+      } @else {
+        <p>
+          I am currently <b><em>looking for work.</em></b>
+        </p>
+      }
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button>
+        <mat-icon
+          fontSet="fa"
+          fontIcon="fa-angle-down"
+          aria-hidden="false"
+          aria-label="see more"></mat-icon>
+        More
+      </button>
+      <button mat-flat-button color="primary">
+        <mat-icon
+          fontSet="fa"
+          fontIcon="fa-file-arrow-down"
+          aria-hidden="false"
+          aria-label="download resume"></mat-icon>
+        Resume
+      </button>
+    </mat-card-actions>
+  </mat-card>
+} @else {
+  <mat-card class="mat-elevation-z0 no-background">
+    <mat-card-content>
+      <ngx-skeleton-loader [count]="1" appearance="line"></ngx-skeleton-loader>
+      <ngx-skeleton-loader
+        [count]="1"
+        appearance="line"
+        [theme]="{ height: '100px' }"></ngx-skeleton-loader>
+      <ngx-skeleton-loader [count]="2" appearance="line"></ngx-skeleton-loader>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <ngx-skeleton-loader
+        [count]="2"
+        appearance="circle"
+        class="cta-skeleton"
+        [theme]="{
+          'border-radius': '25px',
+          width: '110px',
+          float: 'right',
+        }"></ngx-skeleton-loader>
+    </mat-card-actions>
+  </mat-card>
+}
