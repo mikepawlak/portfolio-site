@@ -46,3 +46,13 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+        
+      - name: Generate E2E PR comment
+        run: npm run pr-comment-e2e
+        
+      - name: Comment E2E summary to PR (sticky)
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: e2e-test-summary
+          path: e2e-comment.md
