@@ -1,4 +1,10 @@
 import { test, expect } from '@playwright/test';
+import admin from 'firebase-admin';
+
+test.beforeAll(async () => {
+  process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
+  admin.initializeApp({ projectId: 'portfolio-mikepawlak' });
+});
 
 test('landing page', async ({ page }) => {
   await page.goto('http://localhost:4200/');
@@ -46,4 +52,42 @@ test('landing page', async ({ page }) => {
     dialog.dismiss();
   });
   await page.getByRole('button', { name: 'Send' }).click();
+});
+
+test('contact form', async ({ page }) => {
+  await page.goto('http://localhost:4200/');
+
+  // fill in form (incorrectly)
+  await page.getByRole('textbox', { name: 'Name' }).click();
+  await page.getByRole('textbox', { name: 'Name' }).fill('test');
+  await page.getByRole('textbox', { name: 'Email' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('test');
+  await page.getByRole('textbox', { name: 'Company' }).click();
+  await page.getByRole('textbox', { name: 'Company' }).fill('test');
+  await page.getByText('Message').click();
+  await page.getByRole('textbox', { name: 'Message' }).fill('hello from e2e');
+
+  // expect email validation error and correct
+  await expect(page.getByText('Must be a valid email')).toBeVisible();
+  await page.getByRole('textbox', { name: 'Email' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('test@e2e.com');
+
+  // send message
+  await page.getByRole('button', { name: 'Send' }).click();
+
+  // expect success message
+  await expect(page.getByText('I will be contacting you')).toBeVisible();
+  await expect(page.getByText('Thank you for your interest')).toBeVisible();
+
+  // wire up to db
+  const db = admin.firestore();
+  const snapshot = await db
+    .collection('portfolioMessages')
+    .where('email', '==', 'test@e2e.com')
+    .get();
+  // Assert that at least one document matched:
+  expect(snapshot.size).toBeGreaterThan(0);
+  const data = snapshot.docs[0].data();
+  expect(data.name).toBe('test');
+  expect(data.message).toContain('hello from e2e');
 });

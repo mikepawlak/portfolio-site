@@ -11,6 +11,7 @@ import {
   QuerySnapshot,
   DocumentData,
 } from '@angular/fire/firestore';
+import { addDoc } from 'firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreWrapper {
@@ -37,5 +38,21 @@ export class FirestoreWrapper {
       id: docSnap.id,
       ...(docSnap.data() as D),
     }));
+  }
+
+  /**
+   * Add a new document to the given collection.
+   *
+   * @param path The Firestore collection path (e.g. 'portfolioMessages')
+   * @param data An object of type D to store
+   * @returns The newly created document's ID
+   */
+  async addDocument<D>(path: string, data: D): Promise<string> {
+    const col: CollectionReference<DocumentData> = collection(
+      this.firestore,
+      path
+    );
+    const ref = await addDoc(col, data as DocumentData);
+    return ref.id;
   }
 }

@@ -38,14 +38,12 @@ describe('ContactFormService', () => {
     expect(() => service.submit()).toThrowError(
       'ContactFormService: form is invalid'
     );
-    // required fields should now be touched
     ['email', 'message'].forEach(field => {
       expect(service.form.get(field)!.touched).toBeTrue();
     });
   });
 
-  it('submit() on valid form should return "ok", call resetForm, and clear the form', done => {
-    // Arrange: fill in valid values
+  it('submit() on valid form should return the form value without resetting', () => {
     const payload: ContactFormValue = {
       name: 'Alice',
       email: 'alice@example.com',
@@ -53,30 +51,13 @@ describe('ContactFormService', () => {
       message: 'Hi there',
     };
     service.form.setValue(payload);
-    spyOn(service, 'resetForm').and.callThrough();
-
-    // Act & Assert
-    service.submit().subscribe(() => {
-      expect(service.resetForm).toHaveBeenCalled();
-
-      expect(service.form.value).toEqual({
-        name: null,
-        email: null,
-        company: null,
-        message: null,
-      });
-      Object.values(service.form.controls).forEach(ctrl => {
-        expect(ctrl.pristine).toBeTrue();
-        expect(ctrl.untouched).toBeTrue();
-        expect(ctrl.errors).toBeNull();
-      });
-      expect(service.form.errors).toBeNull();
-      done();
-    });
+    const result = service.submit();
+    expect(result).toEqual(payload);
+    // form should remain populated
+    expect(service.form.value).toEqual(payload);
   });
 
   it('resetForm() should clear values, touched/dirty flags, and all errors', () => {
-    // Arrange: set some values, marks, and errors
     service.form.setValue({
       name: 'X',
       email: 'bad',
@@ -89,10 +70,8 @@ describe('ContactFormService', () => {
     emailCtrl.setErrors({ custom: true });
     service.form.setErrors({ group: true });
 
-    // Act
     service.resetForm();
 
-    // Assert: values reset
     expect(service.form.value).toEqual({
       name: null,
       email: null,

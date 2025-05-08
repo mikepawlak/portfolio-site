@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
 
 /**
  * Shape of the contact-form payload that will be sent to the backend.
@@ -40,20 +39,17 @@ export class ContactFormService {
   }
 
   /**
-   * Validates and submits the form to the backend.
+   * Validates and prepares the form for submission.
    *
    * @throws Error if the form is invalid (after marking all as touched)
-   * @returns Observable emitting the server response
+   * @returns The form value
    */
-  submit(): Observable<ContactFormValue> {
+  submit(): ContactFormValue {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       throw new Error('ContactFormService: form is invalid');
     }
-
-    const payload: ContactFormValue = this.form.value;
-    this.resetForm();
-    return of(payload);
+    return this.form.getRawValue() as ContactFormValue;
   }
 
   /**

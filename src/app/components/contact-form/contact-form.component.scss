@@ -24,6 +24,24 @@ mat-card {
         }
       }
     }
+
+    .submission-success {
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      mat-icon {
+        width: 150px;
+        height: 150px;
+        justify-content: center;
+        vertical-align: baseline;
+        display: flex;
+        padding: 2px;
+        font-size: 75px !important;
+        color: var(--mat-sys-primary);
+      }
+    }
   }
 }
 
