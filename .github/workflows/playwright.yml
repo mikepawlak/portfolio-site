@@ -30,14 +30,12 @@ jobs:
       - name: Start Firestore Emulator
         run: |
           # run emulator in background
-          npm run start:backend
-          # give it a few seconds to boot
+          npm run start:backend &&
           sleep 5
 
       - name: Serve Angular E2E build
         run: |
-          # adjust if you have a custom npm script
-          npm run start:ui -- --port 4200 &
+          npm run start:ui &
           sleep 5
 
       - name: Run Playwright tests
