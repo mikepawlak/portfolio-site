@@ -1,28 +1,43 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of, throwError } from 'rxjs';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ContactFormComponent } from './contact-form.component';
 import {
   ContactFormService,
   ContactFormValue,
 } from 'src/app/services/form/contact-form.service';
+import { PortfolioMessagesService } from 'src/app/services/data/portfolio-message.service';
 
 describe('ContactFormComponent', () => {
-  let component: ContactFormComponent;
   let fixture: ComponentFixture<ContactFormComponent>;
-  let service: ContactFormService;
-  let alertSpy: jasmine.Spy;
+  let component: ContactFormComponent;
+  let formService: ContactFormService;
+  let portfolioService: jasmine.SpyObj<PortfolioMessagesService>;
 
   beforeEach(async () => {
+    const portfolioSpy = jasmine.createSpyObj('PortfolioMessagesService', [
+      'sendMessage',
+    ]);
+    const snackSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+
     await TestBed.configureTestingModule({
-      imports: [ContactFormComponent],
+      imports: [ContactFormComponent, NoopAnimationsModule],
+      providers: [
+        { provide: PortfolioMessagesService, useValue: portfolioSpy },
+        { provide: MatSnackBar, useValue: snackSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactFormComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ContactFormService);
-    alertSpy = spyOn(window, 'alert');
+
+    formService = TestBed.inject(ContactFormService);
+    portfolioService = TestBed.inject(
+      PortfolioMessagesService
+    ) as jasmine.SpyObj<PortfolioMessagesService>;
+
     fixture.detectChanges();
   });
 
@@ -30,43 +45,32 @@ describe('ContactFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render title and subtitle', () => {
-    const title = fixture.debugElement.query(
-      By.css('mat-card-title')
-    ).nativeElement;
-    expect(title.textContent).toContain('Get In Touch!');
-
-    const subtitle = fixture.debugElement.query(
-      By.css('mat-card-subtitle')
-    ).nativeElement;
-    expect(subtitle.textContent).toContain('Lorem ipsum dolor sit amet');
-  });
-
   it('should disable Send button initially', () => {
-    const btn = fixture.debugElement.query(By.css('button'))
-      .nativeElement as HTMLButtonElement;
+    const btn: HTMLButtonElement = fixture.debugElement.query(
+      By.css('button')
+    ).nativeElement;
     expect(btn.disabled).toBeTrue();
   });
 
   it('should enable Send button when form is valid', () => {
-    // fill form with valid values
     const valid: ContactFormValue = {
       name: 'Bob',
       email: 'bob@example.com',
       company: 'Acme',
       message: 'Hello',
     };
-    service.form.setValue(valid);
-    service.form.markAsDirty();
+    formService.form.setValue(valid);
+    formService.form.markAsDirty();
     fixture.detectChanges();
 
-    const btn = fixture.debugElement.query(By.css('button'))
-      .nativeElement as HTMLButtonElement;
+    const btn: HTMLButtonElement = fixture.debugElement.query(
+      By.css('button')
+    ).nativeElement;
     expect(btn.disabled).toBeFalse();
   });
 
   it('should show email required error when touched and empty', () => {
-    const emailCtrl = service.form.get('email')!;
+    const emailCtrl = formService.form.get('email')!;
     emailCtrl.markAsTouched();
     fixture.detectChanges();
 
@@ -77,66 +81,26 @@ describe('ContactFormComponent', () => {
     );
   });
 
-  it('should call success alert on valid submit', () => {
-    spyOn(service, 'submit').and.returnValue(of({} as ContactFormValue));
-    service.form.setValue({
+  it('should display thank-you message after a successful send', async () => {
+    const payload: ContactFormValue = {
       name: 'Alice',
       email: 'alice@example.com',
       company: 'ExampleCo',
-      message: 'Hi',
-    });
-    fixture.detectChanges();
-
-    component.onSubmit();
-
-    expect(service.submit).toHaveBeenCalled();
-    expect(alertSpy).toHaveBeenCalledWith('Message sent!');
-  });
-
-  it('should re-disable Send button after successful submit & reset', () => {
-    const valid: ContactFormValue = {
-      name: 'Alice',
-      email: 'alice@example.com',
-      company: 'ExampleCo',
-      message: 'Hi',
+      message: 'Hi there',
     };
+    formService.form.setValue(payload);
+    formService.form.markAsDirty();
+    portfolioService.sendMessage.and.returnValue(Promise.resolve('new-id'));
 
-    spyOn(service, 'submit').and.callFake(() => {
-      service.resetForm();
-      return of(valid);
-    });
-
-    service.form.setValue(valid);
-    service.form.markAsDirty();
-    fixture.detectChanges();
-    let btn = fixture.debugElement.query(By.css('button'))
-      .nativeElement as HTMLButtonElement;
-    expect(btn.disabled).toBeFalse();
-
-    component.onSubmit();
+    await component.onSubmit();
     fixture.detectChanges();
 
-    btn = fixture.debugElement.query(By.css('button'))
-      .nativeElement as HTMLButtonElement;
-    expect(btn.disabled).toBeTrue();
-  });
+    const titleText = fixture.debugElement.query(By.css('mat-card-title'))
+      .nativeElement.textContent;
+    expect(titleText).toContain('Thank you for your interest');
 
-  it('should call error alert on failed submit', () => {
-    spyOn(service, 'submit').and.returnValue(
-      throwError(() => new Error('fail'))
-    );
-    // form must be valid to trigger subscribe error path
-    service.form.setValue({
-      name: 'Alice',
-      email: 'alice@example.com',
-      company: 'ExampleCo',
-      message: 'Hi',
-    });
-    fixture.detectChanges();
-
-    component.onSubmit();
-
-    expect(service.submit).toHaveBeenCalled();
-    expect(alertSpy).toHaveBeenCalledWith('Please fix errors and try again.');
+    const subtitleText = fixture.debugElement.query(By.css('mat-card-subtitle'))
+      .nativeElement.textContent;
+    expect(subtitleText).toContain('I will be contacting you shortly');
   });
 });
