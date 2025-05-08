@@ -48,9 +48,11 @@ jobs:
           retention-days: 30
         
       - name: Generate E2E PR comment
+        if: ${{ github.event_name == 'pull_request' }}
         run: node scripts/pr-comment-e2e.js > e2e-comment.md
         
       - name: Comment E2E summary to PR (sticky)
+        if: ${{ github.event_name == 'pull_request' }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
