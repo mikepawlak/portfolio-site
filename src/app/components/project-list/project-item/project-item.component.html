@@ -1,6 +1,12 @@
-<div class="project">
+<div
+  class="project"
+  (click)="openDetail.emit(project)"
+  (keydown.enter)="openDetail.emit(project)"
+  (keydown.space)="openDetail.emit(project)"
+  tabindex="0"
+  data-testid="project">
   <img alt="project name" src="https://placehold.co/200x300" />
   <div class="project-title">
-    <h4>Project Title</h4>
+    <h4>{{ project?.title }}</h4>
   </div>
 </div>

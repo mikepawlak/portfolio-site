@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <h2>{{ data.project.title }}</h2>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+<img alt="project name" [src]="data.project.img" />
+<p class="subtitle">{{ data.project.description }}</p>
+<button mat-flat-button>Go To Project</button>
+<p>
+  {{ data.project.content }}
+</p>
+<mat-toolbar class="footer-toolbar">
+  <app-project-tracker
+    [disableBack]="currentIndex === 0"
+    [disableNext]="currentIndex === data.projects.length - 1"
+    (back)="onBack()"
+    (next)="onNext()"></app-project-tracker>
+</mat-toolbar>

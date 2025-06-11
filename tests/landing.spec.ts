@@ -36,6 +36,10 @@ test('landing page', async ({ page }) => {
     page.getByRole('button', { name: 'linkedin' }).first()
   ).toBeVisible();
 
+  // Expect projects
+  await expect(page.getByText('projects')).toBeVisible();
+  await expect(page.locator('app-project-list')).toBeVisible();
+
   // Expect form
   await expect(page.getByText('Get In Touch!')).toBeVisible();
   await expect(
@@ -52,6 +56,35 @@ test('landing page', async ({ page }) => {
     dialog.dismiss();
   });
   await page.getByRole('button', { name: 'Send' }).click();
+});
+
+test('projects', async ({ page }) => {
+  await page.goto('http://localhost:4200/');
+
+  // open project dialog
+  await page.locator('app-project-item').getByTestId('project').first().click();
+  await expect(
+    page.locator('#mat-mdc-dialog-0').getByText('Project Title 1')
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Go To Project' })
+  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'next' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'back' })).toBeVisible();
+
+  // next back buttons work
+  await page.getByRole('button', { name: 'next' }).click();
+  await expect(
+    page.locator('#mat-mdc-dialog-0').getByText('Project Title 2')
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'next' }).click();
+  await expect(
+    page.locator('#mat-mdc-dialog-0').getByText('Project Title 3')
+  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'next' })).toBeVisible();
+
+  // close modal
+  await page.getByRole('button', { name: 'close' }).click();
 });
 
 test('contact form', async ({ page }) => {
