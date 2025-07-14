@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  e2e_test:
     timeout-minutes: 5
     runs-on: ubuntu-latest
 
