@@ -61,3 +61,11 @@ mat-card {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+.full-height-sheet .mat-bottom-sheet-container {
+  height: 95vh !important;
+  max-height: 95vh !important;
+}
+.mat-mdc-dialog-surface {
+  background: transparent !important;
+}

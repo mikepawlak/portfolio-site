@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-content>
+    <div class="title-wrapper">
+      <div>{{ data.project.title }}</div>
+      <button mat-icon-button aria-label="close" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <img alt="project name" [src]="data.project.banner" />
+    <p class="subtitle">
+      {{ data.project.description }}
+    </p>
+    <button mat-flat-button>Go To Project</button>
+    <p>
+      {{ data.project.content }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <app-project-tracker
+      [disableBack]="currentIndex === 0"
+      [disableNext]="currentIndex === data.projects.length - 1"
+      (next)="onNext()"
+      (back)="onBack()"></app-project-tracker>
+  </mat-card-actions>
+</mat-card>
