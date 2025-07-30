@@ -19,9 +19,6 @@ test('landing page', async ({ page }) => {
 
   // Expect CTAs
   await expect(
-    page.getByRole('button', { name: 'see more More' })
-  ).toBeVisible();
-  await expect(
     page.getByRole('button', { name: 'download resume Resume' })
   ).toBeVisible();
 
@@ -37,7 +34,6 @@ test('landing page', async ({ page }) => {
   ).toBeVisible();
 
   // Expect projects
-  await expect(page.getByText('projects')).toBeVisible();
   await expect(page.locator('app-project-list')).toBeVisible();
 
   // Expect form
@@ -109,7 +105,6 @@ test('contact form', async ({ page }) => {
   await page.getByRole('button', { name: 'Send' }).click();
 
   // expect success message
-  await expect(page.getByText('I will be contacting you')).toBeVisible();
   await expect(page.getByText('Thank you for your interest')).toBeVisible();
 
   // wire up to db

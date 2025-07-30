@@ -1,13 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { WorkExperience } from 'src/app/services/data/work-experience.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-work-history-item',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatChipsModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    DatePipe,
+  ],
   templateUrl: './work-history-item.component.html',
   styleUrl: './work-history-item.component.scss',
   animations: [
@@ -23,6 +31,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ],
 })
 export class WorkHistoryItemComponent {
+  @Input() experience: WorkExperience;
   expanded = false;
 
   toggle() {
