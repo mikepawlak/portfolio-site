@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:ui": "ng serve",
+    "start:ui:prod": "ng serve --configuration production",
     "start:ui:ci": "nohup ng serve --port=4200 > serve.log 2>&1 &",
     "start:backend": "firebase emulators:start --only firestore",
     "start:backend:ci": "firebase emulators:start --only firestore",
