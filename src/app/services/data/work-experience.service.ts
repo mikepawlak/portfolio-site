@@ -15,7 +15,7 @@ export interface WorkExperience {
   title: string;
   /** Location */
   location: string;
-  /** A brief description of responsibilities or achievements */
+  /** A brief description of responsibilities */
   description: string;
   /** Start date as ts */
   startDate: Timestamp;

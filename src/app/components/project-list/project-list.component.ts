@@ -64,8 +64,8 @@ export class ProjectListComponent {
     private dialog: MatDialog,
     private sheet: MatBottomSheet
   ) {}
-
   openDetail(project: Project) {
+    // check viewport for how to best display modal
     this.breakpoint
       .observe([Breakpoints.Handset])
       .pipe(

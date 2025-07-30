@@ -1,20 +1,15 @@
-export interface Environment {
-  production: boolean;
-  firebase: {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    /* …other fields… */
-  };
-  useEmulator: boolean;
-}
+import { Environment } from './environment.model';
 
 export const environment: Environment = {
   production: false,
-  firebase: {
-    apiKey: '', // fill locally or via CI secrets
-    authDomain: '',
-    projectId: 'portfolio-mikepawlak',
-  },
   useEmulator: true,
+  firebase: {
+    apiKey: 'fake-api-key',
+    authDomain: 'localhost',
+    projectId: 'portfolio-mikepawlak',
+    storageBucket: 'portfolio-mikepawlak.appspot.com',
+    messagingSenderId: '1234567890',
+    appId: '1:1234567890:web:abcdef123456',
+    measurementId: 'G-FAKEID1234',
+  },
 };
