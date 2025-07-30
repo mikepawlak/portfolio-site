@@ -1,39 +1,30 @@
 <mat-card>
-  <mat-card-title>Senior Software Engineer</mat-card-title>
-  <mat-card-subtitle>Octane Coffee</mat-card-subtitle>
-  <mat-card-subtitle>2023 - 2025</mat-card-subtitle>
+  <mat-card-title>{{ experience.title }}</mat-card-title>
+  <mat-card-subtitle>{{ experience.company }}</mat-card-subtitle>
+  <mat-card-subtitle>
+    {{ experience.startDate.toDate() | date: "MMM ''yy" }} -
+    {{
+      experience.endDate
+        ? (experience.endDate.toDate() | date: "MMM ''yy")
+        : 'Present'
+    }}
+  </mat-card-subtitle>
   <mat-card-content>
-    <div class="chip-wrapper">
-      <mat-chip>Javascript</mat-chip>
-      <mat-chip>Typescript</mat-chip>
-      <mat-chip>NestJS</mat-chip>
-      <mat-chip>Ionic</mat-chip>
-      <mat-chip>GCP</mat-chip>
-      <mat-chip>Firebase</mat-chip>
-    </div>
-    <h4>Highlights</h4>
-    <ul>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor
-      </li>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor
-      </li>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor
-      </li>
-    </ul>
+    <p>
+      {{ experience.description }}
+    </p>
     @if (expanded) {
-      <p @fadeInOut>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
+      <h4>Highlights</h4>
+      <ul @fadeInOut>
+        @for (highlight of experience.highlights; track highlight) {
+          <li>{{ highlight }}</li>
+        }
+      </ul>
+      <div class="chip-wrapper" @fadeInOut>
+        @for (skill of experience.skills; track skill) {
+          <mat-chip>{{ skill }}</mat-chip>
+        }
+      </div>
     }
   </mat-card-content>
   <mat-card-actions align="end">

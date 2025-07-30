@@ -1,2 +1,3 @@
-<app-work-history-item></app-work-history-item>
-<app-work-history-item></app-work-history-item>
+@for (experience of workExperiences; track experience) {
+  <app-work-history-item [experience]="experience"></app-work-history-item>
+}

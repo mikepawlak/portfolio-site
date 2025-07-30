@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { WorkHistoryItemComponent } from './work-history-item.component';
+import { Timestamp } from 'firebase/firestore';
 
 describe('WorkHistoryItemComponent', () => {
   let component: WorkHistoryItemComponent;
@@ -23,6 +24,17 @@ describe('WorkHistoryItemComponent', () => {
 
     fixture = TestBed.createComponent(WorkHistoryItemComponent);
     component = fixture.componentInstance;
+    component.experience = {
+      id: '1',
+      company: 'TestCo',
+      title: 'Frontend Engineer',
+      location: 'Remote',
+      description: 'Worked on UI',
+      startDate: Timestamp.fromDate(new Date('2022-01-01')),
+      endDate: Timestamp.fromDate(new Date('2023-01-01')),
+      skills: ['Angular', 'TypeScript'],
+      highlights: ['Built cool stuff'],
+    };
     fixture.detectChanges();
   });
 
@@ -44,7 +56,9 @@ describe('WorkHistoryItemComponent', () => {
   });
 
   it('should hide the <p> element initially', () => {
-    const p = fixture.debugElement.query(By.css('mat-card-content p'));
+    const p = fixture.debugElement.query(
+      By.css('mat-card-content .chip-wrapper')
+    );
     expect(p).toBeNull();
   });
 
@@ -55,7 +69,9 @@ describe('WorkHistoryItemComponent', () => {
 
     expect(component.expanded).toBeTrue();
 
-    const p = fixture.debugElement.query(By.css('mat-card-content p'));
+    const p = fixture.debugElement.query(
+      By.css('mat-card-content .chip-wrapper')
+    );
     expect(p).not.toBeNull();
 
     const btnEl = buttonDe.nativeElement as HTMLButtonElement;
@@ -80,7 +96,9 @@ describe('WorkHistoryItemComponent', () => {
     fixture.detectChanges();
 
     expect(component.expanded).toBeFalse();
-    const p = fixture.debugElement.query(By.css('mat-card-content p'));
+    const p = fixture.debugElement.query(
+      By.css('mat-card-content .chip-wrapper')
+    );
     expect(p).toBeNull();
   }));
 });
