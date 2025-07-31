@@ -1,0 +1,33 @@
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial chunk files   | Names         |  Raw size
+vendor.js             | vendor        |   6.67 MB | 
+styles.css, styles.js | styles        | 238.48 kB | 
+polyfills.js          | polyfills     | 236.43 kB | 
+main.js               | main          | 130.59 kB | 
+runtime.js            | runtime       |   6.64 kB | 
+
+                      | Initial total |   7.29 MB
+
+Build at: 2025-07-31T04:13:04.442Z - Hash: aeafc7d49e665239 - Time: 11821ms
+
+Warning: /Users/mike/Documents/github.io/apps/web/src/environments/environment.prod.ts is part of the TypeScript compilation but it's unused.
+Add only entry points to the 'files' or 'include' properties in your tsconfig.
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+Initial chunk files | Names   | Raw size
+runtime.js          | runtime |  6.64 kB | 
+
+4 unchanged chunks
+
+Build at: 2025-07-31T04:13:05.635Z - Hash: df39eb85eab825d6 - Time: 1036ms
+
+✔ Compiled successfully.
