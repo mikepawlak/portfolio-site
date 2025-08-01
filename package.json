@@ -1,30 +1,31 @@
 {
   "name": "portfolio",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
-    "start:ui": "ng serve",
-    "start:ui:prod": "ng serve --configuration production",
-    "start:ui:ci": "nohup ng serve --port=4200 > serve.log 2>&1 &",
+    "start:ui": "ng serve --project web",
+    "start:ui:prod": "ng serve --project web --configuration production",
+    "start:ui:ci": "nohup ng serve --project web --port=4200 > serve.log 2>&1 &",
+    "build": "ng build web",
+    "watch": "ng build web --watch --configuration development",
+    "test": "ng test --project web --code-coverage",
+    "test:ci": "ng test --project web --karma-config apps/web/karma.ci.conf.js --code-coverage",
+    "lint": "ng lint web",
     "start:backend": "firebase emulators:start --only firestore",
     "start:backend:ci": "firebase emulators:start --only firestore",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage",
-    "test:ci": "ng test --karma-config karma.ci.conf.js  --code-coverage",
     "e2e": "playwright test",
     "prepare": "husky",
-    "lint": "ng lint",
-    "format": "prettier ./src --write",
+    "format": "prettier ./apps/web/src --write",
     "preflight": "npm run lint && npm run format && npm run test && npm run e2e"
   },
   "lint-staged": {
     "*.{ts,js,jsx,tsx}": [
-      "eslint ./src/**/*.*",
-      "prettier ./src --write"
+      "eslint ./apps/web/src/**/*.*",
+      "prettier ./apps/web/src --write"
     ],
     "*.{css,scss,html,json,md}": [
-      "prettier ./src --write"
+      "prettier ./apps/web/src --write"
     ]
   },
   "config": {
@@ -32,7 +33,6 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.0",
     "@angular/cdk": "^19.2.0",

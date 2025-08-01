@@ -6,12 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { PortfolioMessagesService } from 'src/app/services/data/portfolio-message.service';
 import {
   ContactFormService,
   ContactFormValue,
 } from 'src/app/services/form/contact-form.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-contact-form',

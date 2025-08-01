@@ -39,7 +39,7 @@ bootstrapApplication(LandingPageComponent, {
     provideRemoteConfig(() => {
       const remoteConfig = getRemoteConfig();
       remoteConfig.settings = {
-        minimumFetchIntervalMillis: environment.production ? 3600000 : 1000,
+        minimumFetchIntervalMillis: environment.production ? 1000 : 1000,
         fetchTimeoutMillis: 1000,
       };
       remoteConfig.defaultConfig = {

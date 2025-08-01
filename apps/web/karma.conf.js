@@ -3,7 +3,7 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
+    basePath: 'apps/web',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
@@ -32,7 +32,7 @@ module.exports = function (config) {
     },
 
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/'),
+      dir: require('path').join(__dirname, './../../coverage/'),
       reporters: [{ type: 'text-summary' }],
     },
     port: 9876,

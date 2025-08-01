@@ -4,11 +4,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ContactFormComponent } from './contact-form.component';
+import { PortfolioMessagesService } from 'src/app/services/data/portfolio-message.service';
 import {
   ContactFormService,
   ContactFormValue,
 } from 'src/app/services/form/contact-form.service';
-import { PortfolioMessagesService } from 'src/app/services/data/portfolio-message.service';
 
 describe('ContactFormComponent', () => {
   let fixture: ComponentFixture<ContactFormComponent>;
