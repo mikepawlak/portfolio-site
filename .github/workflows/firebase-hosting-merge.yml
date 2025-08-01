@@ -38,4 +38,4 @@ jobs:
         with:
           args: deploy --only functions --project portfolio-mikepawlak
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
