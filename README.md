@@ -23,6 +23,7 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 ### Testing & Confidence
 
 - Unit tests written with Jest and Angular Testing Utilities.
+- End to end tests for Chrome, Safari, and Firefox with Playwright
 - Code coverage tracked via karma-coverage.
 - CI workflow runs tests on every PR and blocks merges on failure.
 
