@@ -38,12 +38,6 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 
 ## Explore the Code
 
-- apps/web/ – Angular frontend
-- apps/functions/ – Firebase Functions (Node.js backend)
-- .github/workflows/ – CI/CD pipelines
-
-## Feature Highlights
-
-- Inline skeleton loaders to improve perceived performance
-- Firebase Analytics tracking for user interaction (resume downloads, social links)
-- Feature flags powered by Firebase Remote Config
+- [apps/web/](https://github.com/mikepawlak/portfolio-site/tree/readme/apps/web) – Angular frontend
+- [apps/functions/](https://github.com/mikepawlak/portfolio-site/tree/readme/apps/functions) – Firebase Functions (Node.js backend)
+- [.github/workflows/](https://github.com/mikepawlak/portfolio-site/tree/readme/.github/workflows) – CI/CD pipelines
