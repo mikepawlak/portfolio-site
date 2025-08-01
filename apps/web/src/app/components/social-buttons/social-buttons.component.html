@@ -1,23 +1,38 @@
 <div class="social-button-row">
-  <button mat-icon-button class="mat-elevation-z1">
+  <a
+    mat-icon-button
+    class="mat-elevation-z1"
+    href="mailto:mpawlak719@gmail.com"
+    aria-label="email"
+    (click)="trackExternal('email')">
     <mat-icon
       fontSet="fa"
       fontIcon="fa-envelope"
-      aria-hidden="false"
-      aria-label="email"></mat-icon>
-  </button>
-  <button mat-icon-button class="mat-elevation-z1">
-    <mat-icon
-      fontSet="fab"
-      fontIcon="fa-github"
-      aria-hidden="false"
-      aria-label="github"></mat-icon>
-  </button>
-  <button mat-icon-button class="mat-elevation-z1">
+      aria-hidden="false"></mat-icon>
+  </a>
+
+  <a
+    mat-icon-button
+    class="mat-elevation-z1"
+    href="https://github.com/mikepawlak"
+    target="_blank"
+    rel="noopener"
+    aria-label="github"
+    (click)="trackExternal('github')">
+    <mat-icon fontSet="fab" fontIcon="fa-github" aria-hidden="false"></mat-icon>
+  </a>
+
+  <a
+    mat-icon-button
+    class="mat-elevation-z1"
+    href="https://linkedin.com/in/pawlak-mike"
+    target="_blank"
+    rel="noopener"
+    aria-label="linkedin"
+    (click)="trackExternal('linkedin')">
     <mat-icon
       fontSet="fab"
       fontIcon="fa-linkedin"
-      aria-hidden="false"
-      aria-label="linkedin"></mat-icon>
-  </button>
+      aria-hidden="false"></mat-icon>
+  </a>
 </div>

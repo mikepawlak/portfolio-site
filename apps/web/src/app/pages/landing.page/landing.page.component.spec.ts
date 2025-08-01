@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { LandingPageComponent } from './landing.page.component';
-import { FeatureFlagService } from 'src/app/services/data/feature-flag.service';
+import { FeatureFlagService } from 'src/app/services/feature-flag.service';
 
 // Fake child components
 @Component({ selector: 'app-title', template: '' })

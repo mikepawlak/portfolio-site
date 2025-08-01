@@ -3,6 +3,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { LandingPageComponent } from './app/pages/landing.page/landing.page.component';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import {
   provideRemoteConfig,
@@ -22,24 +28,36 @@ bootstrapApplication(LandingPageComponent, {
     provideHttpClient(),
     provideNativeDateAdapter(),
 
-    // Initialize Firebase
+    // Initialize Firebase App
     provideFirebaseApp(() => initializeApp(environment.firebase)),
 
-    // Provide Firestore and (if dev) connect to emulator
+    // Conditionally initialize Firebase Analytics
+    ...(!environment.useEmulator
+      ? [
+          provideAnalytics(() => getAnalytics()),
+          ScreenTrackingService,
+          UserTrackingService,
+        ]
+      : (() => {
+          console.info('Skipping Firebase Analytics in emulator mode...');
+          return [];
+        })()),
+
+    // Provide Firestore (with emulator support)
     provideFirestore(() => {
       const firestore = getFirestore();
       if (!environment.production && environment.useEmulator) {
-        console.info('Connecting to firestore emulator...');
+        console.info('Connecting to Firestore emulator...');
         connectFirestoreEmulator(firestore, 'localhost', 8080);
       }
       return firestore;
     }),
 
-    // Provide Remote Config for feature flags
+    // Provide Remote Config
     provideRemoteConfig(() => {
       const remoteConfig = getRemoteConfig();
       remoteConfig.settings = {
-        minimumFetchIntervalMillis: environment.production ? 1000 : 1000,
+        minimumFetchIntervalMillis: environment.production ? 3600000 : 1000,
         fetchTimeoutMillis: 1000,
       };
       remoteConfig.defaultConfig = {

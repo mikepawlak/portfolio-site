@@ -7,6 +7,7 @@ import {
   EmploymentStatusService,
 } from 'src/app/services/data/employment-status.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-title',
@@ -24,11 +25,18 @@ export class TitleComponent implements OnInit {
   employmentStatus?: EmploymentStatus;
   loaded = false;
 
-  constructor(private employmentStatusService: EmploymentStatusService) {}
+  constructor(
+    private employmentStatusService: EmploymentStatusService,
+    private analytics: AnalyticsService
+  ) {}
 
   async ngOnInit() {
     this.employmentStatus =
       await this.employmentStatusService.getFirstActiveStatus();
     this.loaded = true;
+  }
+
+  trackResumeDownload() {
+    this.analytics.logResumeDownload();
   }
 }
