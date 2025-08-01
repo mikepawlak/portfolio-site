@@ -5,7 +5,7 @@ import { WorkHistoryListComponent } from '../../components/work-history-list/wor
 import { ProjectListComponent } from '../../components/project-list/project-list.component';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { FeatureFlagService } from 'src/app/services/data/feature-flag.service';
+import { FeatureFlagService } from 'src/app/services/feature-flag.service';
 
 @Component({
   selector: 'app-landing-page',

@@ -19,18 +19,16 @@ test('landing page', async ({ page }) => {
 
   // Expect CTAs
   await expect(
-    page.getByRole('button', { name: 'download resume Resume' })
+    page.getByRole('link', { name: 'download resume Resume' })
   ).toBeVisible();
 
   // Expect socials
+  await expect(page.getByRole('link', { name: 'email' }).first()).toBeVisible();
   await expect(
-    page.getByRole('button', { name: 'email' }).first()
+    page.getByRole('link', { name: 'github' }).first()
   ).toBeVisible();
   await expect(
-    page.getByRole('button', { name: 'github' }).first()
-  ).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: 'linkedin' }).first()
+    page.getByRole('link', { name: 'linkedin' }).first()
   ).toBeVisible();
 
   // Expect form

@@ -18,14 +18,20 @@
       }
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-flat-button color="primary">
+      <a
+        mat-flat-button
+        color="primary"
+        href="/assets/ResumeMikePawlak.pdf"
+        target="_blank"
+        (click)="trackResumeDownload()"
+        download>
         <mat-icon
           fontSet="fa"
           fontIcon="fa-file-arrow-down"
           aria-hidden="false"
           aria-label="download resume"></mat-icon>
         Resume
-      </button>
+      </a>
     </mat-card-actions>
   </mat-card>
 } @else {
