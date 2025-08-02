@@ -30,8 +30,13 @@ jobs:
           npm install -g firebase-tools
           echo "Starting backend emulator..."
           npm run start:backend:ci > emulators.log 2>&1 &
+          echo "Waiting 10 seconds for emulator to boot..."
+          sleep 10
+          echo "=== EMULATOR LOG START ==="
+          cat emulators.log || echo "⚠️ No log output"
+          echo "=== EMULATOR LOG END ==="
           echo "Waiting for Firestore emulator on :8080..."
-          npx wait-on http://localhost:8080 || (echo "::error ::Emulator failed to start"; cat emulators.log; exit 1)
+          npx wait-on http://localhost:8080 || (echo "::error ::Emulator failed to start"; exit 1)
       - name: Serve UI
         run: |
           npm run start:ui:ci &
