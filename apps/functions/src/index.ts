@@ -1,4 +1,8 @@
-import { onDocumentCreated } from 'firebase-functions/v2/firestore';
+import {
+  FirestoreEvent,
+  onDocumentCreated,
+  QueryDocumentSnapshot,
+} from 'firebase-functions/v2/firestore';
 import * as logger from 'firebase-functions/logger';
 
 import {
@@ -18,6 +22,6 @@ export const formNotification = onDocumentCreated(
   },
   async event => {
     logger.info('📨 New document created', { docId: event.params.docId });
-    await sendSlackMessage(event);
+    await sendSlackMessage(event as FirestoreEvent<QueryDocumentSnapshot>);
   }
 );
