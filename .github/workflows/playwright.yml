@@ -27,7 +27,7 @@ jobs:
       - name: Start Firestore Emulator
         run: |
           npm install -g firebase-tools
-          npm install --prefix apps/functions
+          npm ci && npm ci --prefix apps/functions
           npm run start:backend:ci --silent > emulators.log 2>&1 &
           echo "Firestore emulator starting in background…"
           npx wait-on http://localhost:8080
