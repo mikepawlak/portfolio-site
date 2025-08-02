@@ -26,7 +26,6 @@ jobs:
 
       - name: Start Firestore Emulator
         run: |
-          run: |
           set -e
           npm install -g firebase-tools
           echo "Starting backend emulator..."
