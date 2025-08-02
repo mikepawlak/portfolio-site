@@ -1,6 +1,7 @@
 import { defineSecret } from 'firebase-functions/params';
-import fetch from 'node-fetch';
 import { FirestoreEvent } from 'firebase-functions/v2/firestore';
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
+import fetch from 'node-fetch';
 
 /**
  * Secret token for authenticating with the Slack bot.
@@ -19,14 +20,20 @@ export const slackChannelId = defineSecret('SLACK_CHANNEL_ID');
  * @returns Promise<void>
  */
 export const sendSlackMessage = async (
-  event: FirestoreEvent<{ name: string; email: string; message: string }>
+  event: FirestoreEvent<QueryDocumentSnapshot>
 ): Promise<void> => {
-  const data = event.data?.data();
+  const doc = event.data;
 
-  if (!data) {
+  if (!doc) {
     console.error('No document data found.');
     return;
   }
+
+  const data = doc.data() as {
+    name: string;
+    email: string;
+    message: string;
+  };
 
   const token = slackBotToken.value();
   const channel = slackChannelId.value();
@@ -64,7 +71,7 @@ export const sendSlackMessage = async (
       body: JSON.stringify(message),
     });
 
-    const result = await res.json();
+    const result = (await res.json()) as { ok: boolean; error?: string };
 
     if (!result.ok) {
       throw new Error(`Slack API error: ${result.error}`);
