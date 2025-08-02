@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { FirestoreEvent } from 'firebase-functions/firestore';
 import { sendSlackMessage, slackBotToken, slackChannelId } from './sendToSlack';
 import fetch from 'node-fetch';
 
@@ -40,7 +41,9 @@ describe('sendSlackMessage', () => {
       json: async () => ({ ok: true }),
     } as any);
 
-    await sendSlackMessage(eventMock);
+    await sendSlackMessage(
+      eventMock as unknown as FirestoreEvent<FirebaseFirestore.QueryDocumentSnapshot>
+    );
 
     expect(mockedFetch).toHaveBeenCalledWith(
       'https://slack.com/api/chat.postMessage',
@@ -77,7 +80,9 @@ describe('sendSlackMessage', () => {
       json: async () => ({ ok: false, error: 'invalid_auth' }),
     } as any);
 
-    await sendSlackMessage(eventMock);
+    await sendSlackMessage(
+      eventMock as unknown as FirestoreEvent<FirebaseFirestore.QueryDocumentSnapshot>
+    );
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       '❌ Failed to send Slack message:',
@@ -93,7 +98,9 @@ describe('sendSlackMessage', () => {
       },
     };
 
-    await sendSlackMessage(eventMock);
+    await sendSlackMessage(
+      eventMock as unknown as FirestoreEvent<FirebaseFirestore.QueryDocumentSnapshot>
+    );
 
     expect(consoleErrorSpy).toHaveBeenCalledWith('No document data found.');
   });
