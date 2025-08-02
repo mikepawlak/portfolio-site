@@ -1,9 +1,45 @@
 import { test, expect } from '@playwright/test';
 import admin from 'firebase-admin';
+import fetch from 'node-fetch';
+
+async function waitForFirestoreEmulator(timeoutMs = 10000) {
+  const start = Date.now();
+  const url = 'http://localhost:8080';
+
+  while (Date.now() - start < timeoutMs) {
+    try {
+      const res = await fetch(url);
+      if (res.ok || res.status === 404) return;
+    } catch {
+      // retry
+    }
+    await new Promise(r => setTimeout(r, 500));
+  }
+
+  throw new Error('Firestore emulator did not start in time');
+}
+
+test.beforeAll(async () => {
+  await test.step('Wait for Firestore emulator to be ready', async () => {
+    process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
+    await waitForFirestoreEmulator();
+  });
+
+  await test.step('Initialize Firebase Admin SDK', async () => {
+    if (!admin.apps.length) {
+      admin.initializeApp({ projectId: 'portfolio-mikepawlak' });
+    }
+  });
+});
 
 test.beforeAll(async () => {
   process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
-  admin.initializeApp({ projectId: 'portfolio-mikepawlak' });
+
+  await waitForFirestoreEmulator();
+
+  if (!admin.apps.length) {
+    admin.initializeApp({ projectId: 'portfolio-mikepawlak' });
+  }
 });
 
 test('landing page', async ({ page }) => {
