@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "NodeNext",
     "types": ["jest", "node"],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
     "noImplicitReturns": true,
