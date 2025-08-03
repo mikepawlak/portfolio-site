@@ -13,7 +13,7 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
+      - run: npm ci && npm ci  --prefix apps/functions && npm run build
       - name: Inject secrets into environment.prod.ts
         run: |
           echo "export const environment = {
