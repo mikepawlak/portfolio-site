@@ -26,11 +26,15 @@ jobs:
 
       - name: Start Firestore Emulator
         run: |
+          set -e
           npm install -g firebase-tools
-          npm run start:backend:ci --silent > emulators.log 2>&1 &
-          echo "Firestore emulator starting in background…"
-          # give it a moment to spin up
-          sleep 5
+          npm install --prefix apps/functions
+          npm run build --prefix apps/functions
+
+          echo "Starting backend emulator..."
+          firebase emulators:start --only firestore,functions --project portfolio-mikepawlak --config firebase.json > emulators.log 2>&1 &
+          echo "Waiting for Firestore emulator..."
+          sleep 15
 
       - name: Serve UI
         run: |
