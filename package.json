@@ -17,7 +17,7 @@
     "lint:web": "ng lint web",
     "lint": "ng lint web",
     "start:backend": "npm --prefix apps/functions run build && firebase emulators:start --only firestore,functions --project portfolio-mikepawlak",
-    "start:backend:ci": "npm --prefix apps/functions run build && firebase emulators:start --only firestore,functions",
+    "start:backend:ci": "firebase emulators:start --only firestore,functions --project portfolio-mikepawlak --config firebase.json",
     "e2e": "playwright test",
     "prepare": "husky",
     "format": "prettier ./apps/web/src --write",
