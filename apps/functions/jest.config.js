@@ -1,4 +1,4 @@
-/** @type {import('jest').Config} */
+// apps/functions/jest.config.js
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -7,12 +7,5 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-  coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.test.ts',
-    '!src/**/__mocks__/**',
-    '!src/**/index.ts',
-  ],
-  coverageReporters: ['lcov', 'text-summary'],
+  reporters: ['default'],
 };
