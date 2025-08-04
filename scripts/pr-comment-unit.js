@@ -9,22 +9,21 @@ function loadJson(file) {
   }
 }
 
-function buildMarkdownSection(title, testFile, covFile) {
-  const tests = loadJson(testFile);
-  const cov = loadJson(covFile);
-
-  const passed = tests?.summary?.success ?? 0;
-  const failed = tests?.summary?.failed ?? 0;
-  const skipped = tests?.summary?.skipped ?? 0;
+function generateMarkdown(title, testResults, coverage) {
+  const summary = testResults?.summary ?? {};
+  const passed = summary.success ?? 0;
+  const failed = summary.failed ?? 0;
+  const skipped = summary.skipped ?? 0;
   const total = passed + failed + skipped;
 
-  const stmtPct = cov?.total?.statements?.pct ?? 0;
-  const brncPct = cov?.total?.branches?.pct ?? 0;
-  const funcPct = cov?.total?.functions?.pct ?? 0;
-  const linePct = cov?.total?.lines?.pct ?? 0;
+  const cov = coverage?.total ?? {};
+  const stmtPct = cov.statements?.pct ?? 0;
+  const brncPct = cov.branches?.pct ?? 0;
+  const funcPct = cov.functions?.pct ?? 0;
+  const linePct = cov.lines?.pct ?? 0;
 
   return `
-### 🧪 ${title}
+### ${title}
 
 | 📊 Metric              | 🔢 Value         |
 | ---------------------- | ---------------: |
@@ -38,36 +37,19 @@ function buildMarkdownSection(title, testFile, covFile) {
 `.trim();
 }
 
-// File locations (already in root /coverage dir)
-const webTestsFile = path.join(
-  __dirname,
-  '..',
-  'coverage',
-  'web-test-results.json'
-);
-const webCovFile = path.join(
-  __dirname,
-  '..',
-  'coverage',
-  'coverage-final.json'
-); // web overwrites this
+// Load test results and coverage files
+const webTestResults = loadJson('coverage/web-test-results.json');
+const webCoverage = loadJson('coverage/coverage-final.json');
 
-const fnTestsFile = path.join(__dirname, '..', 'coverage', 'test-results.json');
-const fnCovFile = path.join(
-  __dirname,
-  '..',
-  'coverage',
-  'functions-coverage.json'
+const fnTestResults = loadJson('coverage/functions-test-results.json');
+const fnCoverage = loadJson('coverage/functions-coverage-final.json');
+
+const webTable = generateMarkdown('🖥️ Web App', webTestResults, webCoverage);
+const fnTable = generateMarkdown(
+  '☁️ Cloud Functions',
+  fnTestResults,
+  fnCoverage
 );
 
-// Build both sections
-const webTable = buildMarkdownSection('Web App', webTestsFile, webCovFile);
-const fnTable = buildMarkdownSection('Cloud Functions', fnTestsFile, fnCovFile);
-
-// Print side-by-side using two Markdown tables in one row
-const combined = `
-| ${webTable.replace(/\n/g, '<br>')} | ${fnTable.replace(/\n/g, '<br>')} |
-| --- | --- |
-`;
-
-console.log(combined);
+// Combine the output with a divider
+console.log(`${webTable}\n\n---\n\n${fnTable}`);
