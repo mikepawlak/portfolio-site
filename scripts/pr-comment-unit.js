@@ -9,10 +9,10 @@ function loadJson(file) {
   }
 }
 
-function generateSection(title, testSummary, coverage) {
-  const passed = testSummary?.success ?? 0;
-  const failed = testSummary?.failed ?? 0;
-  const skipped = testSummary?.skipped ?? 0;
+function renderTable(title, testResults, coverage) {
+  const passed = testResults?.summary?.success ?? 0;
+  const failed = testResults?.summary?.failed ?? 0;
+  const skipped = testResults?.summary?.skipped ?? 0;
   const total = passed + failed + skipped;
 
   const stmtPct = coverage?.total?.statements?.pct ?? 0;
@@ -21,41 +21,51 @@ function generateSection(title, testSummary, coverage) {
   const linePct = coverage?.total?.lines?.pct ?? 0;
 
   return `
-### 🧪 ${title}
-
-| 📊 Metric              | 🔢 Value         |
-| ---------------------- | ---------------: |
-| ✅ Tests Passed        | ${passed}/${total}       |
-| ❌ Tests Failed        | ${failed}           |
-| 🤷‍♂️ Tests Skipped      | ${skipped}           |
-| 📑 Statements Coverage | ${stmtPct}%          |
-| 🌿 Branches Coverage   | ${brncPct}%          |
-| 🔧 Functions Coverage  | ${funcPct}%          |
-| 📋 Lines Coverage      | ${linePct}%          |
-`.trim();
+    <td valign="top">
+      <h3>${title}</h3>
+      <table>
+        <thead>
+          <tr><th>📊 Metric</th><th>🔢 Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>✅ Tests Passed</td><td>${passed}/${total}</td></tr>
+          <tr><td>❌ Tests Failed</td><td>${failed}</td></tr>
+          <tr><td>🤷‍♂️ Tests Skipped</td><td>${skipped}</td></tr>
+          <tr><td>📑 Statements Coverage</td><td>${stmtPct}%</td></tr>
+          <tr><td>🌿 Branches Coverage</td><td>${brncPct}%</td></tr>
+          <tr><td>🔧 Functions Coverage</td><td>${funcPct}%</td></tr>
+          <tr><td>📋 Lines Coverage</td><td>${linePct}%</td></tr>
+        </tbody>
+      </table>
+    </td>
+  `;
 }
 
-// Load test and coverage files
-const root = path.join(__dirname, '..', 'coverage');
+// Load data from root-level coverage folder
+const webTests = loadJson(
+  path.join(__dirname, '..', 'coverage', 'web-test-results.json')
+);
+const webCoverage = loadJson(
+  path.join(__dirname, '..', 'coverage', 'coverage-final.json')
+);
 
-const reportSets = [
-  {
-    label: 'Web App',
-    testFile: 'web-test-results.json',
-    covFile: 'web-coverage-summary.json',
-  },
-  {
-    label: 'Cloud Functions',
-    testFile: 'functions-test-results.json',
-    covFile: 'functions-coverage-summary.json',
-  },
-];
+const funcTests = loadJson(
+  path.join(__dirname, '..', 'coverage', 'test-results.json')
+);
+const funcCoverage = loadJson(
+  path.join(__dirname, '..', 'coverage', 'coverage-summary.json')
+);
 
-const sections = reportSets.map(({ label, testFile, covFile }) => {
-  const testSummary = loadJson(path.join(root, testFile))?.summary ?? null;
-  const coverage = loadJson(path.join(root, covFile));
-  return generateSection(label, testSummary, coverage);
-});
+const webTable = renderTable('🖥️ Web App', webTests, webCoverage);
+const funcTable = renderTable('☁️ Cloud Functions', funcTests, funcCoverage);
 
-const finalOutput = sections.join('\n\n');
-console.log(finalOutput);
+const comment = `
+<table>
+  <tr>
+    ${webTable}
+    ${funcTable}
+  </tr>
+</table>
+`.trim();
+
+console.log(comment);
