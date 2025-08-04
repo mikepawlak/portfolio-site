@@ -21,7 +21,7 @@ module.exports = function (config) {
       suppressAll: true,
     },
 
-    reporters: ['spec', 'coverage'],
+    reporters: ['spec', 'coverage', 'json'],
     specReporter: {
       maxLogLines: 5,
       suppressErrorSummary: false,
@@ -34,6 +34,13 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require('path').join(__dirname, './../../coverage/'),
       reporters: [{ type: 'text-summary' }],
+    },
+    jsonReporter: {
+      stdout: false,
+      outputFile: require('path').join(
+        __dirname,
+        './../../coverage/web-test-results.json'
+      ),
     },
     port: 9876,
     colors: true,
