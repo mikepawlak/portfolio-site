@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "eslint",
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --json --outputFile=../../coverage/functions-test-results.json --coverage",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",

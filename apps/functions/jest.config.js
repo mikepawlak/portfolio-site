@@ -1,4 +1,3 @@
-/** @type {import('jest').Config} */
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -7,12 +6,12 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-  coverageDirectory: 'coverage',
+  coverageDirectory: '../../coverage/functions',
+  coverageReporters: ['json', 'lcov', 'text-summary'],
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.test.ts',
     '!src/**/__mocks__/**',
     '!src/**/index.ts',
   ],
-  coverageReporters: ['lcov', 'text-summary'],
 };
