@@ -1,9 +1,11 @@
 name: "Comment Unit Test"
 description: "Post unit test results to PR"
+
 inputs:
   github_token:
     required: true
     description: "GitHub token for PR comment"
+
 runs:
   using: "composite"
   steps:
@@ -11,7 +13,7 @@ runs:
       run: node scripts/pr-comment-unit.js > comment.md
       shell: bash
 
-    - name: Post unit test summary
+    - name: Post comment
       uses: marocchino/sticky-pull-request-comment@v2
       with:
         path: comment.md

@@ -1,17 +1,18 @@
-name: "Deploy Preview"
-description: "Deploy preview site to Firebase Hosting"
+name: "Deploy to Firebase Preview"
+description: "Deploy preview site to Firebase for PR"
+
 inputs:
   pr_number:
     required: true
-  firebase_service_account:
-    required: true
+    description: "PR number for preview channel"
+
 runs:
   using: "composite"
   steps:
-    - name: Firebase Preview Deploy
+    - name: Deploy preview to Firebase
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ env.GITHUB_TOKEN }}
-        firebaseServiceAccount: ${{ inputs.firebase_service_account }}
+        firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
         projectId: portfolio-mikepawlak
         channelId: pr-${{ inputs.pr_number }}

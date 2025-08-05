@@ -1,14 +1,10 @@
-name: "Deploy Prod"
-description: "Deploy to Firebase Hosting and Functions"
-inputs:
-  firebase_service_account:
-    required: true
-  gcp_sa_key:
-    required: true
+name: "Deploy Production"
+description: "Deploy to Firebase Hosting and Cloud Functions"
+
 runs:
   using: "composite"
   steps:
-    - name: Inject production environment
+    - name: Inject secrets into environment.prod.ts
       run: |
         echo "export const environment = {
           production: true,
@@ -25,17 +21,17 @@ runs:
         };" > apps/web/src/environments/environment.prod.ts
       shell: bash
 
-    - name: Deploy Hosting
+    - name: Deploy hosting
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ env.GITHUB_TOKEN }}
-        firebaseServiceAccount: ${{ inputs.firebase_service_account }}
-        projectId: portfolio-mikepawlak
+        firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
         channelId: live
+        projectId: portfolio-mikepawlak
 
-    - name: Deploy Functions
+    - name: Deploy functions
       uses: joinflux/firebase-tools@v14.6.0
       with:
         args: deploy --only functions --project portfolio-mikepawlak
       env:
-        GCP_SA_KEY: ${{ inputs.gcp_sa_key }}
+        GCP_SA_KEY: ${{ env.GCP_SA_KEY }}
