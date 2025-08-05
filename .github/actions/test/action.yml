@@ -1,5 +1,5 @@
 name: "Run Unit Tests"
-description: "Run unit tests and generate coverage report"
+description: "Run unit tests for all projects"
 
 runs:
   using: "composite"
@@ -13,6 +13,6 @@ runs:
       run: npm ci && npm ci --prefix apps/functions
       shell: bash
 
-    - name: Run tests
+    - name: Run unit tests
       run: npm run test:ci
       shell: bash
