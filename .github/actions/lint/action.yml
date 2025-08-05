@@ -1,0 +1,15 @@
+name: Lint
+description: Lint code
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+
+    - name: Run lint
+      run: npm run lint
+      shell: bash

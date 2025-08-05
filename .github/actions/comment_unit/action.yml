@@ -1,0 +1,16 @@
+name: Comment Unit Test Results
+description: Post unit test comment to PR
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate unit test PR comment
+      run: node scripts/pr-comment-unit.js > comment.md
+      shell: bash
+
+    - name: Comment summary to PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: ci-test-coverage-report
+        path: comment.md

@@ -1,0 +1,16 @@
+name: Comment E2E Results
+description: Post E2E test summary to PR
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate E2E PR comment
+      run: node scripts/pr-comment-e2e.js > e2e-comment.md
+      shell: bash
+
+    - name: Comment E2E summary to PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: e2e-test-summary
+        path: e2e-comment.md

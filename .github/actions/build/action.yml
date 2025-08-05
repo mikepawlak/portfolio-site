@@ -1,0 +1,15 @@
+name: Build
+description: Build web and functions
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm ci && npm ci --prefix apps/functions
+      shell: bash
+
+    - name: Build app and functions
+      run: npm run build && npm run build --prefix apps/functions
+      shell: bash

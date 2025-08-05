@@ -5,32 +5,44 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/jobs/build.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build
 
   lint:
+    runs-on: ubuntu-latest
     needs: build
-    uses: ./.github/workflows/jobs/lint.yml
+    steps:
+      - uses: ./.github/actions/lint
 
   deploy_preview:
+    runs-on: ubuntu-latest
     needs: lint
-    uses: ./.github/workflows/jobs/deploy_preview.yml
-    secrets: inherit
+    steps:
+      - uses: ./.github/actions/deploy_preview
+        with:
+          pr_number: ${{ github.event.pull_request.number }}
 
   unit_tests:
+    runs-on: ubuntu-latest
     needs: deploy_preview
-    uses: ./.github/workflows/jobs/test.yml
+    steps:
+      - uses: ./.github/actions/test
 
   comment_unit:
+    runs-on: ubuntu-latest
     needs: unit_tests
-    uses: ./.github/workflows/jobs/comment_unit.yml
-    secrets: inherit
+    steps:
+      - uses: ./.github/actions/comment_unit
 
   e2e_tests:
+    runs-on: ubuntu-latest
     needs: comment_unit
-    uses: ./.github/workflows/jobs/e2e.yml
-    secrets: inherit
+    steps:
+      - uses: ./.github/actions/e2e
 
   comment_e2e:
+    runs-on: ubuntu-latest
     needs: e2e_tests
-    uses: ./.github/workflows/jobs/comment_e2e.yml
-    secrets: inherit
+    steps:
+      - uses: ./.github/actions/comment_e2e

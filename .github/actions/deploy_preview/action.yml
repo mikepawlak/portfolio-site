@@ -1,0 +1,22 @@
+name: Deploy Preview
+description: Deploy PR preview to Firebase Hosting
+
+inputs:
+  pr_number:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies and build
+      run: npm ci && npm ci --prefix apps/functions && npm run build
+      shell: bash
+
+    - uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK }}
+        projectId: portfolio-mikepawlak
+        channelId: pr-${{ inputs.pr_number }}
