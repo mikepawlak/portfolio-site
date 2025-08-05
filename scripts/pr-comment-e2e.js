@@ -22,8 +22,9 @@ if (!data || !data.stats) {
 
 const { expected, skipped, unexpected, flaky, duration } = data.stats;
 
-// build markdown
 const md = `
+### 🧪 E2E Tests
+
 | 📊 Metric                  | 🔢 Value      |
 | -------------------------- | ------------: |
 | ✅ Tests Expected (passed) | ${expected}      |
