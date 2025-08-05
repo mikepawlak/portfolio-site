@@ -1,0 +1,15 @@
+name: Comment Unit Test Summary
+on:
+  workflow_call:
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/pr-comment-unit.js > comment.md
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: ci-test-coverage-report
+          path: comment.md

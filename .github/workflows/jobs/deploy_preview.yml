@@ -1,20 +1,20 @@
-name: Deploy to Firebase Hosting on PR
-on: pull_request
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+name: Deploy Preview to Firebase
+on:
+  workflow_call:
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK: {}
+      GITHUB_TOKEN: {}
+
 jobs:
-  build_and_preview:
+  deploy:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm ci  --prefix apps/functions && npm run build
+      - run: npm ci && npm ci --prefix apps/functions && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK }}
           projectId: portfolio-mikepawlak
           channelId: pr-${{ github.event.pull_request.number }}
-        

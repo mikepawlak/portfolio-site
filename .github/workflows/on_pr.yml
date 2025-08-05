@@ -1,0 +1,36 @@
+name: On PR
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    uses: ./.github/workflows/jobs/build.yml
+
+  lint:
+    needs: build
+    uses: ./.github/workflows/jobs/lint.yml
+
+  deploy_preview:
+    needs: lint
+    uses: ./.github/workflows/jobs/deploy_preview.yml
+    secrets: inherit
+
+  unit_tests:
+    needs: deploy_preview
+    uses: ./.github/workflows/jobs/test.yml
+
+  comment_unit:
+    needs: unit_tests
+    uses: ./.github/workflows/jobs/comment_unit.yml
+    secrets: inherit
+
+  e2e_tests:
+    needs: comment_unit
+    uses: ./.github/workflows/jobs/e2e.yml
+    secrets: inherit
+
+  comment_e2e:
+    needs: e2e_tests
+    uses: ./.github/workflows/jobs/comment_e2e.yml
+    secrets: inherit

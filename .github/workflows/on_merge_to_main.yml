@@ -1,0 +1,36 @@
+name: On Merge to Main
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: ./.github/workflows/jobs/build.yml
+
+  lint:
+    needs: build
+    uses: ./.github/workflows/jobs/lint.yml
+
+  unit_tests:
+    needs: lint
+    uses: ./.github/workflows/jobs/test.yml
+
+  e2e_tests:
+    needs: unit_tests
+    uses: ./.github/workflows/jobs/e2e.yml
+    secrets: inherit
+
+  deploy_hosting:
+    needs: e2e_tests
+    uses: ./.github/workflows/jobs/deploy_prod.yml
+    with:
+      deploy: hosting
+    secrets: inherit
+
+  deploy_functions:
+    needs: e2e_tests
+    uses: ./.github/workflows/jobs/deploy_prod.yml
+    with:
+      deploy: functions
+    secrets: inherit
