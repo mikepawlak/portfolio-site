@@ -32,14 +32,13 @@ module.exports = function (config) {
     },
 
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/functions/'),
+      dir: require('path').join(__dirname, '../../coverage/web/'),
       reporters: [
         { type: 'json', subdir: '.', file: 'coverage-final.json' },
         { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
         { type: 'text-summary' },
       ],
     },
-
     jsonReporter: {
       stdout: false,
       outputFile: require('path').join(
