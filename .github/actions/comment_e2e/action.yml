@@ -1,16 +1,19 @@
-name: Comment E2E Results
-description: Post E2E test summary to PR
-
+name: "Comment E2E"
+description: "Post E2E test results to PR"
+inputs:
+  github_token:
+    required: true
+    description: "GitHub token for PR comment"
 runs:
   using: "composite"
   steps:
-    - name: Generate E2E PR comment
+    - name: Generate E2E test markdown
       run: node scripts/pr-comment-e2e.js > e2e-comment.md
       shell: bash
 
-    - name: Comment E2E summary to PR
+    - name: Post E2E test summary
       uses: marocchino/sticky-pull-request-comment@v2
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        header: e2e-test-summary
         path: e2e-comment.md
+        header: e2e-test-summary
+        GITHUB_TOKEN: ${{ inputs.github_token }}

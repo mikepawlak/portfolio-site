@@ -1,15 +1,19 @@
-name: Unit Test
-description: Run unit tests and generate coverage report
-
+name: "Unit Tests"
+description: "Run unit tests and generate coverage report"
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
 
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: "npm"
+
     - name: Install dependencies
       run: npm ci && npm ci --prefix apps/functions
       shell: bash
 
-    - name: Run unit tests and coverage
+    - name: Run unit tests
       run: npm run test:ci
       shell: bash

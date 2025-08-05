@@ -1,16 +1,19 @@
-name: Comment Unit Test Results
-description: Post unit test comment to PR
-
+name: "Comment Unit Test"
+description: "Post unit test results to PR"
+inputs:
+  github_token:
+    required: true
+    description: "GitHub token for PR comment"
 runs:
   using: "composite"
   steps:
-    - name: Generate unit test PR comment
+    - name: Generate unit test markdown
       run: node scripts/pr-comment-unit.js > comment.md
       shell: bash
 
-    - name: Comment summary to PR
+    - name: Post unit test summary
       uses: marocchino/sticky-pull-request-comment@v2
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        header: ci-test-coverage-report
         path: comment.md
+        header: ci-test-coverage-report
+        GITHUB_TOKEN: ${{ inputs.github_token }}

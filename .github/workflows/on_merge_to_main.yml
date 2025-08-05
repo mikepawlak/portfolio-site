@@ -1,48 +1,55 @@
-name: On Merge to Main
+name: CI on Merge to Main
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/build
+      - uses: actions/checkout@v4
+
+      - name: Build
+        uses: ./.github/actions/build
 
   lint:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/lint
+      - uses: actions/checkout@v4
+
+      - name: Lint
+        uses: ./.github/actions/lint
 
   unit_tests:
-    runs-on: ubuntu-latest
     needs: lint
+    runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/test
+      - uses: actions/checkout@v4
+
+      - name: Unit Tests
+        uses: ./.github/actions/test
 
   e2e_tests:
-    runs-on: ubuntu-latest
     needs: unit_tests
-    steps:
-      - uses: ./.github/actions/e2e
-        secrets: inherit
-
-  deploy_hosting:
     runs-on: ubuntu-latest
-    needs: e2e_tests
     steps:
-      - uses: ./.github/actions/deploy_prod
-        with:
-          deploy: hosting
-        secrets: inherit
+      - uses: actions/checkout@v4
 
-  deploy_functions:
-    runs-on: ubuntu-latest
+      - name: Run E2E Tests
+        uses: ./.github/actions/e2e
+
+  deploy_prod:
     needs: e2e_tests
+    runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/deploy_prod
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Firebase Prod
+        uses: ./.github/actions/deploy_prod
         with:
-          deploy: functions
-        secrets: inherit
+          firebase_service_account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK }}
+          gcp_sa_key: ${{ secrets.GCP_SA_KEY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
