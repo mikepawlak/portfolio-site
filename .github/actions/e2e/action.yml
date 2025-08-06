@@ -24,11 +24,13 @@ runs:
         firebase emulators:start --only firestore,functions --project portfolio-mikepawlak --config firebase.json > emulators.log 2>&1 &
         echo "Waiting for Firestore emulator..."
         sleep 15
+      shell: bash
 
     - name: Serve UI
       run: |
         npm run start:ui:ci &
         npx wait-on http://localhost:4200
+      shell: bash
 
     - name: Run E2E tests
       run: npm run e2e
