@@ -20,12 +20,27 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 - **ESLint + Angular ESLint** for type-safe, accessible, and idiomatic TypeScript code.
 - **Prettier** for consistent formatting.
 
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/67db55c9-753f-481a-9d3b-0afe5dc82bfb" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/7e65820a-925b-4577-b1a9-debabd7ee849" />
+    </td>
+  </tr>
+</table>
+
+
 ### Testing & Confidence
 
 - Unit tests written with Jest and Angular Testing Utilities.
 - End to end tests for Chrome, Safari, and Firefox with Playwright
 - Code coverage tracked via karma-coverage.
 - CI workflow runs tests on every PR and blocks merges on failure.
+
+<img src="https://github.com/user-attachments/assets/51e6cc2b-d73b-475d-a443-a42ee9ebffcc" />
 
 ### Continuous Deployment
 
@@ -35,8 +50,10 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
   - Firebase Hosting preview channels on pull requests
   - Deployment to production on main branch merge
 
+<img style="margin: 0px auto" alt="Github Actions on Pull Request" src="https://github.com/user-attachments/assets/2f92142c-b6d2-45e7-93c5-e4eae34c83e8" />
+
 ## Explore the Code
 
 - [apps/web/](http://github.com/mikepawlak/portfolio-site/tree/main/apps/web) – Angular frontend
 - [apps/functions/](https://github.com/mikepawlak/portfolio-site/tree/main/apps/functions) – Firebase Functions (Node.js backend)
-- [.github/workflows/](https://github.com/mikepawlak/portfolio-site/tree/main/.github/workflows) – CI/CD pipelines
+- [.github/](https://github.com/mikepawlak/portfolio-site/tree/main/.github/) – CI/CD pipelines
