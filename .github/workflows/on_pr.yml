@@ -25,7 +25,7 @@ jobs:
       - uses: ./.github/actions/lint
 
   unit_tests:
-    needs: build
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,24 +38,30 @@ jobs:
 
       - uses: ./.github/actions/test
 
+      - name: Upload unit test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-coverage
+          path: coverage/
+
   comment_unit:
     needs: unit_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download web build artifact
+      - name: Download unit test coverage
         uses: actions/download-artifact@v4
         with:
-          name: web-dist
-          path: dist/web
+          name: unit-coverage
+          path: coverage/
 
       - uses: ./.github/actions/comment_unit
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   e2e_tests:
-    needs: build
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -68,17 +74,23 @@ jobs:
 
       - uses: ./.github/actions/e2e
 
+      - name: Upload e2e test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-coverage
+          path: coverage/
+
   comment_e2e:
     needs: e2e_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download web build artifact
+      - name: Download e2e test coverage
         uses: actions/download-artifact@v4
         with:
-          name: web-dist
-          path: dist/web
+          name: e2e-coverage
+          path: coverage/
 
       - uses: ./.github/actions/comment_e2e
         with:
