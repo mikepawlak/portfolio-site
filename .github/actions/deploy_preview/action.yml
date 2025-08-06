@@ -1,0 +1,17 @@
+name: "Deploy Firebase Preview"
+description: "Deploy previously built app to Firebase preview channel"
+
+inputs:
+  pr_number:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Deploy to Firebase preview channel
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ env.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
+        channelId: pr-${{ inputs.pr_number }}
+        projectId: portfolio-mikepawlak

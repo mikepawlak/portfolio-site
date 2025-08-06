@@ -1,0 +1,18 @@
+name: "Build Project"
+description: "Install dependencies and build"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: "npm"
+
+    - name: Install dependencies
+      run: npm ci && npm ci --prefix apps/functions
+      shell: bash
+
+    - name: Build
+      run: npm run build
+      shell: bash

@@ -1,6 +1,6 @@
 # Mike Pawlak – Portfolio Site
 
-Welcome to my personal portfolio site! This project is not only a showcase of my work and skills, but also a reflection of how I like to build software: clean, maintainable, automated, and user-focused.
+Welcome to my [personal portfolio site](https://mikepawlak.com/)! This project is not only a showcase of my work and skills, but also a reflection of how I like to build software: clean, maintainable, automated, and user-focused.
 
 ## What This Is
 
@@ -30,7 +30,6 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 ### Continuous Deployment
 
 - **GitHub Actions** pipeline handles:
-
   - Code linting
   - Unit tests
   - Firebase Hosting preview channels on pull requests
@@ -38,6 +37,6 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 
 ## Explore the Code
 
-- [apps/web/](https://github.com/mikepawlak/portfolio-site/tree/readme/apps/web) – Angular frontend
-- [apps/functions/](https://github.com/mikepawlak/portfolio-site/tree/readme/apps/functions) – Firebase Functions (Node.js backend)
-- [.github/workflows/](https://github.com/mikepawlak/portfolio-site/tree/readme/.github/workflows) – CI/CD pipelines
+- [apps/web/](http://github.com/mikepawlak/portfolio-site/tree/main/apps/web) – Angular frontend
+- [apps/functions/](https://github.com/mikepawlak/portfolio-site/tree/main/apps/functions) – Firebase Functions (Node.js backend)
+- [.github/workflows/](https://github.com/mikepawlak/portfolio-site/tree/main/.github/workflows) – CI/CD pipelines

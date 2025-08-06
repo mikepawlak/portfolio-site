@@ -1,0 +1,116 @@
+name: CI on Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
+
+      - name: Upload web build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: dist/web
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lint
+
+  unit_tests:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download web build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: dist/web
+
+      - uses: ./.github/actions/test
+
+      - name: Upload unit test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-coverage
+          path: coverage/
+
+  comment_unit:
+    needs: unit_tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download unit test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: unit-coverage
+          path: coverage/
+
+      - uses: ./.github/actions/comment_unit
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  e2e_tests:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download web build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: dist/web
+
+      - uses: ./.github/actions/e2e
+
+      - name: Upload e2e test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-coverage
+          path: coverage/
+
+  comment_e2e:
+    needs: e2e_tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download e2e test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: e2e-coverage
+          path: coverage/
+
+      - uses: ./.github/actions/comment_e2e
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy_preview:
+    needs: [comment_unit, comment_e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download web build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: dist/web
+
+      - uses: ./.github/actions/deploy_preview
+        with:
+          pr_number: ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_MIKEPAWLAK }}
