@@ -17,7 +17,17 @@
         </p>
       }
     </mat-card-content>
-    <mat-card-actions align="end">
+    <mat-card-actions class="cta-bar">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="see-more"
+        (click)="seeMore.emit()"
+        aria-label="See more">
+        <mat-icon>arrow_downward</mat-icon>
+        See more
+      </button>
+
       <a
         mat-flat-button
         color="primary"
@@ -25,14 +35,12 @@
         target="_blank"
         (click)="trackResumeDownload()"
         download>
-        <mat-icon
-          fontSet="fa"
-          fontIcon="fa-file-arrow-down"
-          aria-hidden="false"
-          aria-label="download resume"></mat-icon>
+        <mat-icon fontSet="fa" fontIcon="fa-file-arrow-down"></mat-icon>
         Resume
       </a>
     </mat-card-actions>
+
+    <app-social-buttons></app-social-buttons>
   </mat-card>
 } @else {
   <mat-card class="mat-elevation-z0 no-background">

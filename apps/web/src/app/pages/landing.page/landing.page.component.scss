@@ -22,3 +22,36 @@
   display: inline-block;
   width: 100%;
 }
+
+.info-banner {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--mat-sys-primary) 35%, transparent);
+  background: color-mix(in srgb, var(--mat-sys-primary) 8%, white);
+  border-radius: 12px;
+  transform: translateX(-24px);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.45s ease-out;
+}
+
+.info-banner.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.info-icon.mat-mdc-icon-button {
+  color: #000;
+}
+
+.info-text a {
+  font-weight: 600;
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

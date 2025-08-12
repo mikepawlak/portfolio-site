@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 mat-card {
@@ -58,6 +58,20 @@ button {
     animation: fadeInRight 0.8s ease-out forwards;
     animation-delay: 0.6s;
   }
+}
+
+.cta-bar {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeInCenter 0.8s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+.see-more {
+  font-weight: 500;
 }
 
 @keyframes fadeInLeft {
