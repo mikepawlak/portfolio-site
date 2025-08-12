@@ -1,6 +1,10 @@
 mat-card {
   margin: 32px 8px;
 
+  mat-card-subtitle {
+    font-weight: normal !important;
+  }
+
   mat-card-content {
     padding-top: 16px;
 
