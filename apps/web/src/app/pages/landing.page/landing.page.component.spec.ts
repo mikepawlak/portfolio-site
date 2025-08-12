@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
@@ -7,19 +10,14 @@ import { FeatureFlagService } from 'src/app/services/feature-flag.service';
 // Fake child components
 @Component({ selector: 'app-title', template: '' })
 class FakeTitleComponent {}
-
 @Component({ selector: 'app-social-buttons', template: '' })
 class FakeSocialButtonsComponent {}
-
 @Component({ selector: 'app-work-history-list', template: '' })
 class FakeWorkHistoryListComponent {}
-
 @Component({ selector: 'app-project-list', template: '' })
 class FakeProjectListComponent {}
-
 @Component({ selector: 'app-contact-form', template: '' })
 class FakeContactFormComponent {}
-
 @Component({ selector: 'app-footer', template: '' })
 class FakeFooterComponent {}
 
@@ -33,7 +31,21 @@ describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
   let mockService: FakeRemoteConfigService;
 
+  // Keep a handle to restore after tests (optional but tidy)
+  const originalIO = (globalThis as any).IntersectionObserver;
+
   beforeEach(async () => {
+    // Minimal mock so ngAfterViewInit() can create/observe/disconnect safely
+    (globalThis as any).IntersectionObserver = class {
+      constructor(_: any, __: any) {}
+      observe() {}
+      disconnect() {}
+      unobserve() {}
+      takeRecords() {
+        return [];
+      }
+    };
+
     mockService = new FakeRemoteConfigService();
 
     await TestBed.configureTestingModule({
@@ -56,7 +68,11 @@ describe('LandingPageComponent', () => {
 
     fixture = TestBed.createComponent(LandingPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.detectChanges(); // triggers ngOnInit and subscription to getFlag
+  });
+
+  afterEach(() => {
+    (globalThis as any).IntersectionObserver = originalIO;
   });
 
   it('should create', () => {
