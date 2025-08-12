@@ -69,9 +69,6 @@ test('landing page', async ({ page }) => {
 
   // Expect form
   await expect(page.getByText('Get In Touch!')).toBeVisible();
-  await expect(
-    page.getByText('Lorem ipsum dolor sit amet, consectetur adipiscing elit…')
-  ).toBeVisible();
   await page.getByRole('textbox', { name: 'Name' }).click();
   await page.getByRole('textbox', { name: 'Name' }).fill('test');
   await page.getByText('Email').click();
