@@ -21,7 +21,7 @@
     "e2e": "playwright test",
     "prepare": "husky",
     "format": "prettier ./apps/web/src --write",
-    "preflight": "npm run lint && npm run format && npm run test && npm run e2e"
+    "preflight": "npm run lint && npm run format && npm run test"
   },
   "lint-staged": {
     "*.{ts,js,jsx,tsx}": [

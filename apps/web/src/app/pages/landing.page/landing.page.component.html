@@ -1,8 +1,30 @@
-<app-title></app-title>
+<app-title (seeMore)="onSeeMore()"></app-title>
+
 <div class="content-container">
-  <app-social-buttons></app-social-buttons>
-  <span class="section-title">work history</span>
+  <span class="section-title" #workHistory>work history</span>
+  @if (infoVisible) {
+    <div class="info-banner visible">
+      <a
+        mat-icon-button
+        href="https://github.com/mikepawlak/portfolio-site#readme"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View GitHub README">
+        <mat-icon fontSet="fab" fontIcon="fa-github"></mat-icon>
+      </a>
+      <span class="info-text">
+        This page is designed to demonstrate how I like to build software.
+        <a
+          href="https://github.com/mikepawlak/portfolio-site#readme"
+          target="_blank"
+          rel="noopener noreferrer">
+          View it on GitHub </a
+        >.
+      </span>
+    </div>
+  }
   <app-work-history-list></app-work-history-list>
+
   @if (projectsEnabled) {
     <span class="section-title has-subtitle">projects</span>
     <span class="section-subtitle"
@@ -13,4 +35,5 @@
   }
   <app-contact-form></app-contact-form>
 </div>
+
 <app-footer></app-footer>

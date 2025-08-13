@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +24,8 @@ import { SocialButtonsComponent } from '../social-buttons/social-buttons.compone
   styleUrls: ['./title.component.scss'],
 })
 export class TitleComponent implements OnInit {
+  @Output() seeMore = new EventEmitter<void>();
+
   employmentStatus?: EmploymentStatus;
   loaded = false;
 
