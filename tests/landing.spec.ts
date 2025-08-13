@@ -54,9 +54,7 @@ test('landing page', async ({ page }) => {
   await expect(currentIntro).toHaveText(/I am currently\s+.+/);
 
   // Expect CTAs
-  await expect(
-    page.getByRole('link', { name: 'download resume Resume' })
-  ).toBeVisible();
+  await expect(page.getByRole('link', { name: 'resume' })).toBeVisible();
 
   // Expect socials
   await expect(page.getByRole('link', { name: 'email' }).first()).toBeVisible();
