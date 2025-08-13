@@ -1,8 +1,6 @@
 # Mike Pawlak – Portfolio Site
 
-# Mike Pawlak – Portfolio Site
-
-![CI on Merge to Main](https://github.com/mikepawlak/portfolio-site/actions/workflows/on_merge_to_main.yml/badge.svg?branch=main)
+![Latest Tests](https://github.com/mikepawlak/portfolio-site/actions/workflows/on_merge_to_main.yml/badge.svg?branch=main)
 ![Production Deployments](https://img.shields.io/github/deployments/mikepawlak/portfolio-site/production)
 
 Welcome to my [personal portfolio site](https://mikepawlak.com/)! This project is not only a showcase of my work and skills, but also a reflection of how I like to build software: clean, maintainable, automated, and user-focused.
