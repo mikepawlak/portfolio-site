@@ -1,5 +1,10 @@
 # Mike Pawlak – Portfolio Site
 
+# Mike Pawlak – Portfolio Site
+
+![CI on Merge to Main](https://github.com/mikepawlak/portfolio-site/actions/workflows/on_merge_to_main.yml/badge.svg?branch=main)
+![Production Deployments](https://img.shields.io/github/deployments/mikepawlak/portfolio-site/production)
+
 Welcome to my [personal portfolio site](https://mikepawlak.com/)! This project is not only a showcase of my work and skills, but also a reflection of how I like to build software: clean, maintainable, automated, and user-focused.
 
 ## What This Is
@@ -20,7 +25,6 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
 - **ESLint + Angular ESLint** for type-safe, accessible, and idiomatic TypeScript code.
 - **Prettier** for consistent formatting.
 
-
 <table>
   <tr>
     <td>
@@ -31,7 +35,6 @@ It’s designed to be fast, accessible, and easy to maintain — the same princi
     </td>
   </tr>
 </table>
-
 
 ### Testing & Confidence
 
