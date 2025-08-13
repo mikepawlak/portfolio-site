@@ -30,8 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './landing.page.component.scss',
 })
 export class LandingPageComponent implements OnInit, AfterViewInit {
-  @ViewChild('workHistory', { read: ElementRef })
-  workHistoryEl?: ElementRef<HTMLElement>;
+  @ViewChild('afterTitle', { read: ElementRef })
+  afterTitleEl?: ElementRef<HTMLElement>;
   projectsEnabled = false;
   infoVisible = false;
 
@@ -47,7 +47,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const target = this.workHistoryEl?.nativeElement;
+    const target = this.afterTitleEl?.nativeElement;
     if (!target) return;
 
     const io = new IntersectionObserver(
@@ -68,7 +68,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   onSeeMore() {
-    const el = this.workHistoryEl?.nativeElement;
+    const el = this.afterTitleEl?.nativeElement;
     if (!el) return;
 
     const start =
@@ -76,7 +76,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       document.documentElement.scrollTop ||
       window.scrollY ||
       0;
-    const targetY = el.getBoundingClientRect().top + start;
+    const targetY = el.getBoundingClientRect().top + start - 5; //5px offset
     const max = Math.max(0, document.body.scrollHeight - window.innerHeight);
     const top = Math.min(Math.max(0, targetY), max);
 

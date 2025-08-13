@@ -1,8 +1,7 @@
 <app-title (seeMore)="onSeeMore()"></app-title>
 
-<div class="content-container">
-  <span class="section-title" #workHistory>work history</span>
-  @if (infoVisible) {
+<div class="content-container" #afterTitle>
+  @if (true) {
     <div class="info-banner visible">
       <a
         mat-icon-button
@@ -23,6 +22,7 @@
       </span>
     </div>
   }
+  <span class="section-title">work history</span>
   <app-work-history-list></app-work-history-list>
 
   @if (projectsEnabled) {

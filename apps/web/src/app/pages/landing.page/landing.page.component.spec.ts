@@ -6,6 +6,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { LandingPageComponent } from './landing.page.component';
 import { FeatureFlagService } from 'src/app/services/feature-flag.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 // Fake child components
 @Component({ selector: 'app-title', template: '' })
@@ -31,11 +33,9 @@ describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
   let mockService: FakeRemoteConfigService;
 
-  // Keep a handle to restore after tests (optional but tidy)
   const originalIO = (globalThis as any).IntersectionObserver;
 
   beforeEach(async () => {
-    // Minimal mock so ngAfterViewInit() can create/observe/disconnect safely
     (globalThis as any).IntersectionObserver = class {
       constructor(_: any, __: any) {}
       observe() {}
@@ -55,12 +55,17 @@ describe('LandingPageComponent', () => {
       .overrideComponent(LandingPageComponent, {
         set: {
           imports: [
+            // keep fake children to avoid pulling in full deps
             FakeTitleComponent,
             FakeSocialButtonsComponent,
             FakeWorkHistoryListComponent,
             FakeProjectListComponent,
             FakeContactFormComponent,
             FakeFooterComponent,
+
+            // add Material modules used directly in LandingPageComponent template
+            MatIconModule,
+            MatButtonModule,
           ],
         },
       })
@@ -68,7 +73,7 @@ describe('LandingPageComponent', () => {
 
     fixture = TestBed.createComponent(LandingPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // triggers ngOnInit and subscription to getFlag
+    fixture.detectChanges();
   });
 
   afterEach(() => {
