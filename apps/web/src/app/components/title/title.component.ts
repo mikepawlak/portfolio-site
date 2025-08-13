@@ -8,11 +8,13 @@ import {
 } from 'src/app/services/data/employment-status.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { SocialButtonsComponent } from '../social-buttons/social-buttons.component';
 
 @Component({
   selector: 'app-title',
   standalone: true,
   imports: [
+    SocialButtonsComponent,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
