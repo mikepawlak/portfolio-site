@@ -45,23 +45,32 @@
 } @else {
   <mat-card class="mat-elevation-z0 no-background">
     <mat-card-content>
-      <ngx-skeleton-loader [count]="1" appearance="line"></ngx-skeleton-loader>
+      <div class="sk-jumbotron">
+        <ngx-skeleton-loader
+          class="sk-pre"
+          appearance="line"></ngx-skeleton-loader>
+
+        <ngx-skeleton-loader
+          class="sk-jumbo"
+          appearance="line"></ngx-skeleton-loader>
+
+        <ngx-skeleton-loader
+          class="sk-post"
+          appearance="line"></ngx-skeleton-loader>
+      </div>
+
       <ngx-skeleton-loader
-        [count]="1"
-        appearance="line"
-        [theme]="{ height: '100px' }"></ngx-skeleton-loader>
-      <ngx-skeleton-loader [count]="2" appearance="line"></ngx-skeleton-loader>
+        class="sk-status"
+        appearance="line"></ngx-skeleton-loader>
     </mat-card-content>
-    <mat-card-actions align="end">
+
+    <mat-card-actions class="cta-skeleton-bar">
       <ngx-skeleton-loader
-        [count]="2"
-        appearance="circle"
-        class="cta-skeleton"
-        [theme]="{
-          'border-radius': '25px',
-          width: '110px',
-          float: 'right',
-        }"></ngx-skeleton-loader>
+        class="sk-cta see-more"
+        appearance="line"></ngx-skeleton-loader>
+      <ngx-skeleton-loader
+        class="sk-cta resume"
+        appearance="line"></ngx-skeleton-loader>
     </mat-card-actions>
   </mat-card>
 }
